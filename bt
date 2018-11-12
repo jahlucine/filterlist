@@ -1,101 +1,24 @@
-\documentclass{article}
-\usepackage{amsmath,graphicx,calc}
-\usepackage{amssymb}
-\usepackage{exercise}
-\usepackage{tikz}
-\renewcommand{\ExerciseHeader}{\medskip\textbf{\large\ExerciseHeaderNB~-~\ExerciseTitle~~\ExerciseHeaderDifficulty\ExerciseHeaderOrigin}\medskip\\}
-\renewcommand{\AnswerHeader}{\medskip\textbf{\large\ExerciseHeaderNB~-~\ExerciseTitle~-~Solution}\medskip\\}
 
-\begin{document}
+\subsection{primes}
+We consider a prime number $p\ge5$. Prove that $24$ divides $(p^2-1)$ i.e. $24|(p^2-1)$.
 
-\begin{Exercise}[title={Managed Expectations}, difficulty=2, label=ex1,
-origin={MS}]
-%Calculate $\mathbb{E}(\Phi(W_t))$ where $W_t$ a brownian motion and $\Phi$ the standard normal cumulative distribution.
-\end{Exercise}
-\begin{Answer}[ref=ex1]
--elegant solution:
-	$$\mathbb{E}(\Phi(W_t))=\mathbb{E}(\Phi(-W_t))=\mathbb{E}(1-\Phi(W_t))=1-\mathbb{E}(\Phi(W_t))$$
-and we get
-	$$\mathbb{E}(\Phi(W_t))=\frac{1}{2}$$
--other solution:
-	$$\mathbb{E}(\Phi(W_t))=\displaystyle\int\limits_{-\infty}^{+\infty}\Bigg(\int\limits_{-\infty}^{x}\frac{1}{\sqrt{2\pi }}exp\bigg(\frac{-u^2}{2}\bigg)du\Bigg)\frac{1}{\sqrt{2\pi t}}exp\bigg(\frac{-x^2}{2t}\bigg)dt$$
-$$\mathbb{E}(\Phi(W_t))=\displaystyle\int\limits_{-\infty}^{+\infty}\Phi(x)\Phi'(x)dx=\Bigg[\frac{\Phi^2(x)}{2}\Bigg]_{-\infty}^{+\infty}=\frac{1}{2}$$
-\end{Answer}
+\subsection{primes Solution}
+In order to prove that $24|(p^2-1)$ we could prove that $8|(p^2-1)$ and $3|(p^2-1)$.
+
+We note first that $p^2-1=(p-1)(p+1)$, and $p$ being a prime number, $(p-1)$ and $(p+1)$ are two consecutive even integers. Therefore both can be divided by $2$ and one of them can be divided by $4$. We have proved that $8|(p^2-1)$.
+
+We also observe that $p-1,p,p+1$ are 3 consecutive integers. One of them is necessarily divisible by $3$ and it can not be $p$ because it is a prime number. This shows that $3|(p^2-1)$ and therefore $24|(p^2-1)$.
 
 
-\begin{Exercise}[title={bag}, difficulty=2, label=ex1,
-origin={MS}]
+\clearpage
 
-\end{Exercise}
+\subsection{Binary}
+A trader suggests the following binary hedging strategy for a call option:
+\begin{itemize}
+\item sell a call option at strike $K>S_0$
+\item buy the stock at $K$ when $S_t$ is increasing and crosses $K$
+\item sell the stock at $K$ when $S_t$ is decreasing and crosses $K$
+\end{itemize}
+What is wrong with this strategy?
 
-
-
-\begin{figure}[H!]
-\centering
-\begin{minipage}{.5\textwidth}
-\begin{tikzpicture}[scale=2]
-\draw[help lines, color=gray!30, dashed] (0,0) grid (2.5,2.5);
-\draw[->,thin] (0,0)--(2.5,0) node[right]{$x$};
-\draw[->,thin] (0,0)--(0,2.5) node[above]{$y$};
-\filldraw[fill=gray!20] (1,0)
-[] -- (1,1)
-[] -| (2,1);
-\draw[-,thin,color=gray] (0.5,1)--(2.3,1);
-\draw[-,thin,color=gray] (1,1.5)--(1,-0.1);
-\draw[-,thin,color=gray] (0.9,-0.1)--(2.2,1.2);
-\draw[-,thin,color=gray] (2,0)--(2,-0.05);
-\draw[-,thin,color=gray] (0,2)--(-0.05,2);
-\node[] at (2,-0.2) {1};
-\node[] at (-0.2,2) {1};
-\draw[-,ultra thick] (0,0)--(2,0);
-\draw[-,ultra thick] (2,0)--(2,2);
-\draw[-,ultra thick] (0,0)--(2,2);
-\node[] at (1,1.6) {$x=\frac{1}{2}$};
-\node[] at (0.5,1.15) {$y=\frac{1}{2}$};
-\node[] at (2.43,1.33) {$y=x-\frac{1}{2}$};
-\end{tikzpicture}
-\end{minipage}%
-\begin{minipage}{.5\textwidth}
-\begin{tikzpicture}[scale=2]
-\draw[help lines, color=gray!30, dashed] (0,0) grid (2.5,2.5);
-\draw[->,thin] (0,0)--(2.5,0) node[right]{$x$};
-\draw[->,thin] (0,0)--(0,2.5) node[above]{$y$};
-\draw[-,thin,color=gray] (2,0)--(2,-0.05);
-\draw[-,thin,color=gray] (0,2)--(-0.05,2);
-\node[] at (2,-0.2) {1};
-\node[] at (-0.2,2) {1};
-\filldraw[fill=gray!20] (1,0)
-[] -- (1,1)
-[] -| (2,1);
-\filldraw[fill=gray!20] (0,1)
-[] -- (1,1)
-[] -| (1,2);
-\draw[-] (1,0)--(2,1);
-\draw[-] (0,1)--(1,2);
-\draw[-,ultra thick] (0,0)--(2,0);
-\draw[-,ultra thick] (2,0)--(2,2);
-\draw[-,ultra thick] (2,2)--(0,2);
-\draw[-,ultra thick] (0,2)--(0,0);
-\end{tikzpicture}
-\end{minipage}
-\end{figure}
-
-\begin{tikzpicture}[scale=1]
-
-\draw[-,thin] (0,0)--(10,0);
-\draw[-,thin] (0,0)--(0,-0.2);
-\draw[-,thin] (10,0)--(10,-0.2);
-\draw[-,thin] (5,0)--(5,-0.2);
-\draw[-,ultra thick] (5,0)--(8,0);
-\node[] at (0,-0.4) {0};
-\node[] at (10,-0.4) {1};
-\node[] at (5,-0.5) {$\frac{1}{2}$};
-\node[] at (3,-0.05) {\Big[};
-\node[] at (3,-0.6) {$x$};
-\node[] at (8,-0.05) {\Big]};
-\node[] at (8,-0.6) {$x+\frac{1}{2}$};
-\end{tikzpicture}
-
-$$2\displaystyle\int\limits_{0}^{\frac{1}{2}}xdx=2\Bigg[\frac{x^2}{2}\Bigg]^{\frac{1}{2}}_{0}=\frac{1}{4}$$
-
-\end{document}
+\subsection{Binary - Solution}
