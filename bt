@@ -1,3 +1,12 @@
+\documentclass{article}
+\usepackage{amsmath,graphicx,calc}
+\usepackage{amssymb}
+\usepackage{exercise}
+\usepackage{tikz}
+\renewcommand{\ExerciseHeader}{\medskip\textbf{\large\ExerciseHeaderNB~-~\ExerciseTitle~~\ExerciseHeaderDifficulty\ExerciseHeaderOrigin}\medskip\\}
+\renewcommand{\AnswerHeader}{\medskip\textbf{\large\ExerciseHeaderNB~-~\ExerciseTitle~-~Solution}\medskip\\}
+
+\begin{document}
 
 \subsection{primes}
 We consider a prime number $p\ge5$. Prove that $24$ divides $(p^2-1)$ i.e. $24|(p^2-1)$.
@@ -8,6 +17,8 @@ In order to prove that $24|(p^2-1)$ we could prove that $8|(p^2-1)$ and $3|(p^2-
 We note first that $p^2-1=(p-1)(p+1)$, and $p$ being a prime number, $(p-1)$ and $(p+1)$ are two consecutive even integers. Therefore both can be divided by $2$ and one of them can be divided by $4$. We have proved that $8|(p^2-1)$.
 
 We also observe that $p-1,p,p+1$ are 3 consecutive integers. One of them is necessarily divisible by $3$ and it can not be $p$ because it is a prime number. This shows that $3|(p^2-1)$ and therefore $24|(p^2-1)$.
+
+
 
 
 \clearpage
@@ -21,4 +32,49 @@ A trader suggests the following binary hedging strategy for a call option:
 \end{itemize}
 What is wrong with this strategy?
 
+
 \subsection{Binary - Solution}
+
+
+
+\clearpage
+\subsection{Table Seating}
+$n$ guests are queuing at the entrance to get seated at a wedding table. Every guest has an assigned seat number but the first guest to choose his seat is too drunk and takes a random seat. The remaining guests choose their seat according to the following rule:
+\begin{itemize}
+\item if their assigned seat is available they take it
+\item if their assigned seat is taken they choose randomly an available seat
+\end{itemize}
+What is the probability that the last person gets his assigned seat?
+
+
+
+
+
+
+
+
+\clearpage
+
+\subsection{baguettes uniform}
+$$I=\displaystyle\int_{x=0}^{x=1}\int_{y=x}^{y=1}\int_{z=y}^{1\wedge(x+y)}dxdydz$$
+
+$$I=\displaystyle\int_{x=0}^{x=1}\int_{y=x}^{y=1}\Big[x \wedge (1-y) \Big]dxdy$$
+
+$$Y=(1-y)$$
+$$I=\displaystyle\int_{x=0}^{x=1}\int_{Y=0}^{Y=1-x}\Big[x \wedge Y \Big]dxdY$$
+
+$$I=\displaystyle\int_{x=0}^{x=\frac{1}{2}}\int_{Y=0}^{Y=x}YdxdY+\int_{x=0}^{x=\frac{1}{2}}\int_{Y=x}^{Y=1-x}xdxdY+\int_{x=\frac{1}{2}}^{x=1}\int_{Y=0}^{Y=1-x}YdxdY$$
+
+$$I_1=\displaystyle\int_{x=0}^{x=\frac{1}{2}}\int_{Y=0}^{Y=x}YdxdY=\int_{x=0}^{x=\frac{1}{2}}\frac{x^2}{2}dx=\Big[\frac{x^3}{6}\Big]_0^{\frac{1}{2}}=\frac{1}{48}$$
+
+$$I_2=\displaystyle\int_{x=0}^{x=\frac{1}{2}}\int_{Y=x}^{Y=1-x}xdxdY=\int_{x=0}^{x=\frac{1}{2}}x(1-2x)dx=\Big[\frac{x^2}{2}-\frac{2x^3}{3}\Big]_0^{\frac{1}{2}}=\frac{1}{24}$$
+
+$$I_3=\displaystyle\int_{x=\frac{1}{2}}^{x=1}\int_{Y=0}^{Y=1-x}YdxdY=\int_{x=\frac{1}{2}}^{x=1}\frac{(1-x)^2}{2}dx=\Big[\frac{x}{2}-\frac{x^2}{2}+\frac{x^3}{6}\Big]_{\frac{1}{2}}^1=\frac{1}{48}$$
+
+$$P=6I=6(I_1+I_2+I_3)=\frac{1}{2}$$
+
+
+
+
+
+\end{document}
