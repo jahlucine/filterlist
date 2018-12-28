@@ -74,6 +74,18 @@ $$I_3=\displaystyle\int_{x=\frac{1}{2}}^{x=1}\int_{Y=0}^{Y=1-x}YdxdY=\int_{x=\fr
 $$P=6I=6(I_1+I_2+I_3)=\frac{1}{2}$$
 
 
+%\subsection{Girsanov}
+
+$$Z_t=exp\Bigg(\displaystyle\int_0^ta(s)dWs-\displaystyle\int_0^t\frac{a^2(s)}{2}ds\Bigg)$$
+$$Q(A)=\displaystyle\int_{A}Z_tdP$$
+$$\hat{W}_t=W_t-\displaystyle\int_0^ta(s)ds$$
+%\subsection{Call}
+
+$$C=e^{-rT}\mathbb{E}\big(S_T-K\big)^+=e^{-rT}\mathbb{E}\Big(S_T\mathbbm{1}_{(S_T\ge K)}+K\mathbbm{1}_{(S_T\ge K)}\Big)$$
+
+$$S_t=S_0exp\Big(rt-\frac{\sigma^2t}{2}+\sigma W_t\Big)$$
+$$B=e^{-rT}K\mathbb{E}\big(\mathbbm{1}_{(S_T\ge K)}\big)=e^{-rT}KP(S_T\ge K)$$
+
 
 
 
