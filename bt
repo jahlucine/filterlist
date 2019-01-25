@@ -435,7 +435,53 @@ $$\begin{aligned} \mathbb { P } \left( W _ { s } \in d y | W _ { t } = x \right)
 
 This shows that $W _ { s }$ is normally distributed with mean $( s / t ) W _ { t }$ and variance
 $s ( t - s ) .$
+6
+\clearpage
 
+$\begin{array} { c } { \text { Prove directly from the definition of Itô integrals that } } \\ { \int _ { 0 } ^ { t } B _ { s } ^ { 2 } d B _ { s } = \frac { 1 } { 3 } B _ { t } ^ { 3 } - \int _ { 0 } ^ { t } B _ { s } d s } \end{array}$
+
+Martingales?
+
+
+$\begin{array} { l } { \text { (i) } X _ { t } = B _ { t } + 4 t } \\ { \text { (ii) } X _ { t } = B _ { t } ^ { 2 } } \\ { \text { (iii) } X _ { t } = t ^ { 2 } B _ { t } - 2 \int _ { 0 } ^ { t } s B _ { s } d s } \end{array}$
+
+$$M _ { t } = B _ { t } ^ { 2 } - t$$
+
+Oksendal Martingale exo
+a) Let $Y$ be a real valued random variable on $( \Omega , \mathcal { F } , P )$ such that
+$$E [ | Y | < \infty$$
+
+Define
+
+$$M _ { t } = E [ Y | \mathcal { F } _ { t } ] ; \quad t \geq 0$$
+
+Show that $M _ { t }$ is an $\mathcal { F } _ { t }$ -martingale.
+
+$\begin{array} { c } { \text { Conversely, let } M _ { t } ; t \geq 0 \text { be a real valued } \mathcal { F } _ { t - \text { martingale such that } } } \\ { \sup _ { t \geq 0 } E \left[ \left| M _ { t } \right| ^ { p } \right] < \infty \quad \text { for some } p > 1 } \end{array}$
+
+
+
+$$\begin{aligned} \text { Show that there exists } Y \in L ^ { 1 } ( P ) \text { such that } \\ & M _ { t } = E [ Y | \mathcal { F } _ { t } ] \end{aligned}$$
+
+
+
+Nouvel Exo
+
+$*$ In each of the cases below find the process $f ( t , \omega ) \in \mathcal { V } [ 0 , T ]$ such that
+$( 4.3 .6 )$ holds, i.e.
+$F ( \omega ) = E [ F ] + \int _ { 0 } ^ { T } f ( t , \omega ) d B _ { t } ( \omega )$
+
+$\begin{array} { l l } { \text { a) } F ( \omega ) = B _ { T } ( \omega ) } & { \text { b) } F ( \omega ) = \int _ { 0 } ^ { T } B _ { t } ( \omega ) d t } \\ { \text { c) } F ( \omega ) = B _ { T } ^ { 2 } ( \omega ) } & { \text { d) } F ( \omega ) = B _ { T } ^ { 3 } ( \omega ) } \\ { \text { e) } F ( \omega ) = e ^ { B _ { T } ( \omega ) } } & { \text { f) } F ( \omega ) = \sin B _ { T } ( \omega ) } \end{array}$
+
+Nouvel Exo
+
+
+Let $x > 0$ be a constant and define
+$X _ { t } = \left( x ^ { 1 / 3 } + \frac { 1 } { 3 } B _ { t } \right) ^ { 3 } ; \quad t \geq 0$
+
+Show that
+
+$d X _ { t } = \frac { 1 } { 3 } X _ { t } ^ { 1 / 3 } d t + X _ { t } ^ { 2 / 3 } d B _ { t } ; \quad X _ { 0 } = x$
 \clearpage
 
 We use the notation [h,h,h,t] for the current coins position, where h stands for heads and t for tails. We group the coins positions in classes which are stable by cyclical permutation. That means that [t,h,h,h], [h,t,h,h], [h,h,t,h] etc... are treated in a same class. Each time the player asks the game master if the current position is a winning position he can also flip all the coins and test the complementary position too. Therefore we can include the complementaries in the classes, which means that [t,h,h,h], [h,t,t,t], [h,t,h,h], [t,h,t,t] etc... are in a same class.
