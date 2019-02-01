@@ -1,0 +1,137 @@
+Social
+class-id starts with
+fblike
+Fblike
+FBLIKE
+share_
+Share_
+sharing
+share-
+Share-
+follow-
+addthis-
+addthis_
+soc-
+soc_
+facebook-
+fb-like
+FaceBook
+Follow
+twitter-
+
+class-id starts with	
+fblike	10/7
+Fblike	0/0
+FBLIKE	1/0
+share_	67/147
+Share_	0/4
+sharing	21/83
+share-	90/338
+Share-	1/4
+follow-	29/93
+addthis-	2/14
+addthis_	2/46
+soc-	3/31
+soc_	5/10
+facebook-	37/86
+fb-like	6/14
+FaceBook	2/0
+Follow	6/3
+twitter-	27/70
+
+
+contains
+social
+Social
+SOCIAL
+share
+Share
+sharing
+Sharing
+googleplus
+Follow
+follow
+sharify
+Follow us
+Follow on
+Share on
+
+contains	
+social	951/3189
+Social	125/286
+SOCIAL	2/1
+share	629/2499
+Share	125/270
+sharing	40/245
+Sharing	4/26
+googleplus	13/69
+Follow	15/30
+follow	128/347
+sharify	0/8
+Follow us	0/0
+Follow on	0/0
+Share on	0/0
+
+
+ends with
+-facebook
+-twitter
+_facebook
+_instagram
+-instagram
+_follow
+
+	
+ends with	
+-facebook	59/301
+-twitter	50/291
+_facebook	46/105
+_instagram	4/14
+-instagram	6/81
+_follow	14/63
+
+
+
+Cookies
+
+class-id starts with
+privacy-
+
+class-id starts with	
+privacy-	34/45
+
+
+contains
+cookie
+Cookie
+COOKIE
+GDPR
+Gdpr
+gdpr
+-privacy-
+cnil
+CNIL
+privacypolicy
+_privacy_
+
+contains	
+cookie	3718/3161
+Cookie	886/373
+COOKIE	14/5
+GDPR	13/9
+Gdpr	6/5
+gdpr	133/164
+-privacy-	31/30
+cnil	74/35
+CNIL	13/4
+privacypolicy	4/6
+_privacy_	16/12
+
+
+ends with
+consent
+
+ends with	
+consent	163/190
+
+
