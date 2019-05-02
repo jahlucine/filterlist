@@ -80,3 +80,55 @@ e^{x} \quad&=\quad 1+x+\frac{x^{2}}{2 !}+\frac{x^{3}}{3 !}+\frac{x^{4}}{4 !}+\ld
 \cos x \quad&=\quad 1-\frac{x^{2}}{2 !}+\frac{x^{4}}{4 !}-\frac{x^{6}}{6 !}+\frac{x^{8}}{8 !}-\ldots \nonumber \\
 \sin x \quad&=\quad x-\frac{x^{3}}{3 !}+\frac{x^{5}}{5 !}-\frac{x^{7}}{7 !}+\frac{x^{9}}{9 !}-\cdots \nonumber
 \end{align}
+
+#########################################################################
+
+We use the notation [h,h,h,t] for the current coins position, where h stands for heads and t for tails. We group the coins positions in classes which are stable by cyclical permutation. That means for example that [t,h,h,h], [h,t,h,h], [h,h,t,h] are grouped in the same class. Each time the player asks the game master if the current position is a winning position he can also flip all the coins and test the complementary position too. Therefore we can include the complementaries in the classes, which means that [t,h,h,h], [h,t,t,t], [h,t,h,h], [t,h,t,t] etc... are in a same class.
+
+We use the notation [f,o,o,o] to indicate which coins are flipped by the player, f stands for flipped and o indicates that the coins are not flipped. Similarly we group the player moves in classes which are stable by cyclical permutation. 
+
+$$\text{Position Classes}\begin{cases}
+  p_1 : \text{[h,h,h,h]}\\    
+  p_2 : \text{[t,h,h,h]}\\    
+p_3 : \text{[t,t,h,h]}\\    
+p_4 : \text{[t,h,t,h]}  
+\end{cases}
+\text{Transition Classes}\begin{cases}
+  t_1 : \text{[f,f,f,f]}\\    
+  t_2 : \text{[f,o,o,o]}\\    
+t_3 : \text{[f,f,o,o]}\\    
+t_4 : \text{[f,o,f,o]}  
+\end{cases}$$
+
+The transition $t_1$ is used at every step to check the complementary position. The position class $p_1$ is a winning position. We draw the following transition diagram
+
+
+\usetikzlibrary{positioning,automata,arrows}
+\begin{tikzpicture}[node distance=2cm]
+\node[state] (1) {$p_1$};
+\node[state,right of=1] (2) {$p_2$};
+\node[state, above of=1] (4) {$p_4$};
+\node[state, above of=2] (3) {$p_3$};
+\path[->] (2) edge[loop right] node{$t_3$} (2)
+(3) edge[loop right] node{$t_4$} (3)
+(2) edge[above,pos=0.05] node{$t_2$} (4)
+(2) edge[below] node{$t_2$} (1)
+(2) edge[right] node{$t_2$} (3)
+(3) edge[above] node{$t_3$} (4)
+(4) edge[left] node{$t_4$} (1)
+(3) edge[left,pos=0.05] node{$t_3$} (1)
+(2) edge[loop below] node{$t_4$} (2);
+\end{tikzpicture}
+
+
+We notice that the transition $t_4$ applied on $p_4$ always leads to $p_1$. We can also see that $p_2$ and $p_3$ are stable by $t_4$. Note that the diagram does not include some adverse transitions, for example $t_2$ applied to $p_4$ sends back to $p_2$. But we can find a winning strategy with the information available in the diagram
+\begin{itemize}
+\item We ask if the starting position is a winning one. If not we are not in $p_1$
+\item We start by applying $t_4$. If we land in a winning position then we were in $p_4$. If not, we are either in $p_2$ or $p_3$.
+\item We apply now $t_3$ and then $t_4$. If we land in a winning position (after the first move or after the second move, remember we always) we can confirm we were in $p_3$ otherwise we were in $p_2$
+\item We know now that we are in $p_2$. We apply $t_2$, $t_3$ and $t_4$ to win.
+\end{itemize}
+
+The winning algorithm including the complementary check is therefore
+
+$$t_4, t_1,t_3,t_1,t_4,t_1,t_2,t_1,t_3,t_1,t_4,t_1$$
