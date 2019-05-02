@@ -132,3 +132,28 @@ We notice that the transition $t_4$ applied on $p_4$ always leads to $p_1$. We c
 The winning algorithm including the complementary check is therefore
 
 $$t_4, t_1,t_3,t_1,t_4,t_1,t_2,t_1,t_3,t_1,t_4,t_1$$
+
+
+
+\subsection{baguettes uniform}
+$$I=\displaystyle\int_{x=0}^{x=1}\int_{y=x}^{y=1}\int_{z=y}^{1\wedge(x+y)}dxdydz$$
+
+$$I=\displaystyle\int_{x=0}^{x=1}\int_{y=x}^{y=1}\Big[x \wedge (1-y) \Big]dxdy$$
+
+$$Y=(1-y)$$
+$$I=\displaystyle\int_{x=0}^{x=1}\int_{Y=0}^{Y=1-x}\Big[x \wedge Y \Big]dxdY$$
+
+$$I=\displaystyle\int_{x=0}^{x=\frac{1}{2}}\int_{Y=0}^{Y=x}YdxdY+\int_{x=0}^{x=\frac{1}{2}}\int_{Y=x}^{Y=1-x}xdxdY+\int_{x=\frac{1}{2}}^{x=1}\int_{Y=0}^{Y=1-x}YdxdY$$
+
+$$I_1=\displaystyle\int_{x=0}^{x=\frac{1}{2}}\int_{Y=0}^{Y=x}YdxdY=\int_{x=0}^{x=\frac{1}{2}}\frac{x^2}{2}dx$$
+
+$$I_2=\displaystyle\int_{x=0}^{x=\frac{1}{2}}\int_{Y=x}^{Y=1-x}xdxdY=\int_{x=0}^{x=\frac{1}{2}}x(1-2x)dx$$
+
+$$I_3=\displaystyle\int_{x=\frac{1}{2}}^{x=1}\int_{Y=0}^{Y=1-x}YdxdY=\int_{x=\frac{1}{2}}^{x=1}\frac{(1-x)^2}{2}dx=\int_{s=\frac{1}{2}}^{s=0}-\frac{s^2}{2}ds=\int_{x=0}^{x=\frac{1}{2}}\frac{s^2}{2}dx$$
+
+$$I=\int_{x=0}^{x=\frac{1}{2}}\frac{x^2}{2}+\frac{x^2}{2}+x(1-2x)dx=\int_{x=0}^{x=\frac{1}{2}}x(1-x)dx=\left[\frac{x^2}{2}-\frac{x^3}{3}\right]_0^{\frac{1}{2}}=\frac{1}{12}$$
+$$P=6I=\frac{1}{2}$$
+
+
+
+
