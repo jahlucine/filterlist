@@ -633,27 +633,54 @@ stopping time theorem
 
 \subsection{Corridor 1} Let $B_t$ be a Brownian Motion and $u$ and $d$ two positive real numbers. We consider an option which pays 1 if $B_t$ reaches $u$ and remained greater then $-d$ since inception
  $$\exists t_0: B_{t_0}=A; ~ \forall t\in [0,t_0], B_t>-d $$ 
-Payment is made when the barrier is touched. Calculate the price of this option when rates are zero.
+payment is made when the barrier is touched. Calculate the price of this option when rates are zero. Calculate the average exit time i.e. the average time before touching $u$ or $-d$.
 
 \subsection{Corridor 1 - sol}
-This is a classic application of the optimal stopping theorem (see page)
 
-\subsection{One sided corridor} Let $B_t$ be a Brownian Motion and $u$ a positive real number. We consider an option which pays 1 if $B_t$ reaches $u$
+This is a classic application of the optional sampling theorem (see page \ref{optstop}). We define $\tau$ the first hitting time of $u$ or $-d$. $\tau$ is a stopping time. The process $B_{\tau \wedge t}$ is a bounded martingale. By applying the optional sampling theorem to $B_{\tau \wedge t}$ and $\tau$  we obtain
+
+$$\mathbf{E}\left(B_{\tau \wedge \tau}\right)=\mathbf{E}\left(B_{\tau}\right)=\mathbf{E}\left(B_{0}\right)=0$$
+and
+$$\mathbf{E}\left(B_{\tau}\right)=p.u-(1-p).d=0$$
+where p is the probability to hit $u$ first. The price of the option is therefore
+
+$$\text{Price}=P\left\{\text{hit} ~u~ \text{first}\right\}=\frac{d}{u+d}$$
+
+\subsection{One sided corridor}
+
+Let $B_t$ be a Brownian Motion and $u$ a positive real number. We consider an option which pays 1 if $B_t$ reaches $u$
  $$\exists t_0: B_{t_0}=A; ~ \forall t\in [0,t_0], B_t>-d $$ 
-Payment is made when the barrier is touched. Calculate the price of this option when rates are zero.
+payment is made when the barrier is touched. Calculate the price of this option when rates are zero and with rates $r>0$.
 
-\subsection{Corridor 1 - sol}In this version the brownian is not bounded and we cannot apply the optimal stopping theorem. Actually the probability of reaching $A$ is 1 and the price is 1, it can be proved 
+\subsection{One sided corridor - sol}
 
-The one-sided version of the corridor can be a confusing question it is sometimes asked differently: a stock following a brownian motion dynamics starts in $A$ and pays 1 if it reaches $B>A$. in this 
+In this version of the question the stopped Brownian motion is not bounded and we cannot directly apply the optional sampling theorem. Actually the probability of reaching $u$ is 1 because the probability of the brownian motion reaching any given point is 1 (see page). The price of the option without rates is 1.
+
+When interest rates are applied we need to evaluate $\mathbf{E}\left(\exp\left(-r\tau_u \right)\right)$ where $\tau_u$ is the first hitting time of $u$. In order to evaluate it we consider the martingale
+
+$$X_t=\exp \left(aB_{t}-\frac{a^2}{2}t\right)$$
+with $a>0$. The process $X_{\tau \wedge t}$ is a bounded martingale. By applying the optional sampling theorem (see page ) to $X_{\tau_u \wedge t}$ and $\tau_u$ we obtain
+
+$$\mathbf{E}\left(X_{\tau_u \wedge \tau_u}\right)=\mathbf{E}\left(X_{\tau_u}\right)=\mathbf{E}\left(X_{0}\right)=1$$
+and
+$$\mathbf{E}\left(X_{\tau_u}\right)=\mathbf{E}\left(\exp \left(a.u-\frac{a^2}{2}\tau_u\right)\right)=1$$
+$$\mathbf{E}\left(\exp \left(-\frac{a^2}{2}\tau_u\right)\right)=\exp \left(-a.u\right)$$
+We set $a=\sqrt{2r}$ to find the option price
+$$\text{Price}=\mathbf{E}\left(\exp\left(-r\tau_u \right)\right)=\exp \left(-\sqrt{2r}.u\right)$$
+P.S. The one-sided version of the corridor can be a confusing question. It is sometimes asked differently with a stock following brownian motion dynamics, starting in $A$ and paying 1 if the stock reaches $B>A$. The interviewer often assumes that the process behaves like a stock in the sense that if it touches zero the process stays at zero (the stock of a company is equal to zero in case of default). That version is equivalent to a double sided corridor between $0$ and $B$.
 
 \subsection{Corridor 2} Let $B_t$ be a Brownian Motion and $u$ and $d$ two positive real numbers. We consider an option which pays 1 if $B_t$ reaches $u$ and remained greater then $-d$ since inception
 $$\exists t_0: B_{t_0}=A; ~ \forall t\in [0,t_0], B_t>-d $$ 
-Payment is made when the barrier is touched. Calculate the price of this option when $r=10\%$.
+payment is made when the barrier is touched. Calculate the price of this option with rates $r>0$.
 
 \subsection{Corridor 2 - sol}
+We define $\tau$ the first hitting time of $u$ or $-d$. Let $U$ be the subset of $\Omega$ where $u$ is hit first and $D$ be the subset where $-d$ is hit first. We need to evaluate $\mathbf{E}\left(\mathbbm{1}_U\exp\left(-r\tau \right)\right)$
 
+\subsection{Doob's Optional Sampling Theorem}\label{optstop}
+If M is a martingale and $S,T$ are stopping times with $S \leq T$ a.s. and $\mathbb{E}\left|M_{T}\right|<+\infty$ then
+$$\quad \mathbb{E}\left[M_{T} | \mathcal{F}_{S}\right]=M_{S}$$
 
-\subsection{Doob's Optional-Stopping Theorem} Let $(\Omega, \Sigma, \mathbf{P})$ be a probability space$, \mathcal{F}=\left\{F_{n}\right\}$ a filtration on $\Omega,$ and $X=\left\{X_{n}\right\}$ a martingale with respect to $\mathcal{F}$. Let $\tau$ be a stopping time. Suppose that any one of the following conditions holds:
+ Let $(\Omega, \Sigma, \mathbf{P})$ be a probability space$, \mathcal{F}=\left\{F_{n}\right\}$ a filtration on $\Omega,$ and $X=\left\{X_{n}\right\}$ a martingale with respect to $\mathcal{F}$. Let $\tau$ be a stopping time. Suppose that any one of the following conditions holds:
 
 \begin{itemize}
 \item  There is a positive integer $N$ such that $\tau(\omega) \leq N$ for all $\omega \in \Omega$
@@ -663,7 +690,8 @@ for all $n$ and all $\omega \in \Omega,$ and $\tau$ is almost surely finite.
 \item  $\mathbf{E}(\tau)<\infty,$ and there is a positive real number $K$ such that
 $$\left|X_{n}(\omega)-X_{n-1}(\omega)\right|<K$$
 for all $n$ and all $\omega \in \Omega$
-Then $X_{T}$ is integrable, and
+
+Then $X_{\tau}$ is integrable, and
 $$\mathbf{E}\left(X_{\tau}\right)=\mathbf{E}\left(X_{0}\right)$$
 \end{itemize}
 
@@ -679,4 +707,9 @@ if
 $T : \Omega \longrightarrow \mathbb{Z}_{+} \cup\{\infty\}$
 satisfies $\{T \leq n\} \in \mathcal{F}_{n}$
 
+
+\subsection{Hitting Times (First Passage Times)}
+Let $T_{a}=\min \{t : B(t)=a\}$ be the first time the standard Brownian motion process hits a. Using the reflection principle we can prove that
+$$\mathrm{P}\left(T_{a} \leq t\right)=2 \mathrm{P}(B(t) \geq a)=2-2 \Phi(a / \sqrt{t})$$
+$$\lim_{t\to\infty}\mathrm{P}\left(T_{a} \leq t\right)=1$$
 \end{document}
