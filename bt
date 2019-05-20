@@ -37,7 +37,7 @@ We note first that $p^2-1=(p-1)(p+1)$, and $p$ being a prime number, $(p-1)$ and
 We also observe that $p-1,p,p+1$ are 3 consecutive integers. One of them is necessarily divisible by $3$ and it can not be $p$ because it is a prime number. This shows that $3|(p^2-1)$ and therefore $24|(p^2-1)$.
 
 
-
+\fi
 
 \clearpage
 
@@ -51,10 +51,32 @@ A trader suggests the following binary hedging strategy for a call option:
 What is wrong with this strategy?
 
 
-\subsection{Binary - Solution}
+\subsection{Binary - S}This paradox is more than a simple puzzle. The question is called the stop-go paradox and was discussed in several publications (Seidenverg (1988) Carr (1989) Ingersoll (1987) El Karoui (1978)). Generally many interview candidates invoke transaction costs, liquidity or the impossibility to hit an exact price. But all these answers are incorrect because Black Scholes assumptions allow you to build this portfolio. The second type of answer is usually about the portfolio not being self financing because the trader would need to start with $K$ in cash. This is correct but could be addressed using forward contracts for example. We could also borrow the needed cash and the paradox would still be unsolved if the rates are zero.
 
+The correct short answer is that this portfolio is not continuously derivable at $K$, this discontinuity can be crossed an infinity of times by the stochastic process, making it not self-financed.
 
+Let us break the paradox mathematically. We construct the portfolio
+$$V(t)=-\mathbbm{1}_{\{S_t>KP(t)\}} KP(t)+\mathbbm{1}_{\{S_t>KP(t)\}} S_t$$
+where P(t) is the bond's price. This portfolio replicates the terminal payoff and it must satisfy the following equation for all $t$ in order to be self-financed
+$$V(t)=V(0)+\int_{0}^{t} m(u) d P(u)+\int_{0}^{t} n(u) d S_u$$
+For simplicity we take rates constant equal to zero (the general case can be reduced with a change of numeraire). The portfolio is then
+$$V(t)=-\mathbbm{1}_{\{S_t>K\}} K+\mathbbm{1}_{\{S_t>K\}} S_t$$
+and the self-financing condition becomes
+$$V(t)=V(0)+\int_{0}^{t} n(u) d S_u$$
+where
+$$n(u)=\mathbbm{1}_{\{S_u>K\}}$$
+the portfolio is self-financed only if the following equation holds
+$$\begin{aligned}V(t)-V(0)&\stackrel{?}{=}\int_{0}^{t} \mathbbm{1}_{\{S_u>K\}} d S_u\\
+g(S_t)=\mathbbm{1}_{\{S_t>K\}}(S_t-K)-(S_0-K)^+&\stackrel{?}{=}\int_{0}^{t} \mathbbm{1}_{\{S_u>K\}} d S_u\end{aligned}$$
+The key here is that $g$ is not $C^2$ and we cannot apply the usual It\^{o}'s lemma, but we can use the Tanaka formula because $g$ is $C^2$ outside a finite set of points.
+$$g(S_t)=g(S_0)+\int_{0}^{t} g'(S_u) d S_u+\lim_{\epsilon\to0}\frac{1}{2\epsilon}\left|\left\{u\in[0,t];S_u\in[K-\epsilon,K+\epsilon]\right\}\right|$$
+where $g'$ is the weak derivative of $g$ and $|A|$ is the Lebesgue measure of $A$. Therefore
+$$V(t)-V(0)=\int_{0}^{t} \mathbbm{1}_{\{S_u>K\}} d S_u+\lim_{\epsilon\to0}\frac{1}{2\epsilon}\left|\left\{u\in[0,t];S_u\in[K-\epsilon,K+\epsilon]\right\}\right|$$
+The last term does not converge towards zero and the portfolio is not self-financed, breaking the apparent paradox.
 
+In real business conditions this hedging method is not used because of liquidity and the additional risk associated with this book management method. The delta hedging method is preferred, the trader accepts to pay small regular hedging costs in exchange for a much lower risk.
+\clearpage
+\iffalse
 \clearpage
 \subsection{Table Seating}
 $n$ guests are queuing at the entrance to get seated at a wedding table. Every guest has an assigned seat number but the first guest to choose his seat is too drunk and takes a random seat. The remaining guests choose their seat according to the following rule:
@@ -67,6 +89,51 @@ What is the probability that the last person gets his assigned seat?
 
 
 
+
+\fi
+The question is about the longest monotonous subsequence that can be extracted from a given sequence. Intuitively this length increases with the length of the original sequence. We denote $I_i$ (resp. $D_i$) the longest increasing (resp. decreasing) subsequence which last element is $e_i$. The application $i\mapsto \{I_i, D_i\}$ is injective
+\[
+    m<n \Rightarrow
+\begin{cases}
+    e_m<e_n; I_n>I_m\\
+    \text{or} \\
+    e_m>e_n; D_n>D_m\\
+\end{cases}
+\]
+Therefore once $n>p^2$ at best we can fill the square $[1,p]\text{x}[1,p]$ and be guaranteed to find a monotonous subsequence of length $p+1$. Actually for any $n$ we can find a monotonous subsequence of length $\lceil \sqrt{n}\rceil$. In our case $n=300$ and we can extract $18$ ordered elements.
+
+So why is Ramsey in the title? It turns out that an interesting connection can be made between this result and the Ramsey theorem in graph theory. We construct a graph in which each element of the sequence is a node. If two elements of the sequence are in the same order as their indices we connect them with an edge
+$$i<j;~ e_i \text{~and~} e_j \text{~are connected if~} e_i<e_j$$
+In this graph a monotonous subsequence is either a complete subgraph (all the nodes are adjacent) or a stable (no nodes are adjacent). Ramsey theorem states that for every $k$ there exists a Ramsey number $R_k$ such that any graph with $R_k$ nodes or more contains either a complete graph or a stable with $k$ nodes. The Ramsey numbers are only known precisely until $k=4$. Using Ramsey theorem we could prove that there exists a certain sequence length limit for which we could extract an $18$ elements ordered subsequence, unfortunately very little is known about $R_18$. Note that both the Ramsey theorem and the pavement method give only upper bounds for the required number to extract an ordered subsequence.
+
+
+
+
+\begin{table}[h!]
+  \begin{center}
+    \label{tab:table1}
+    \begin{tabular}{|c|c|c|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+\hline
+      \textbf{Length of the } & \textbf{Ramsey Number } & \\
+     \textbf{ Monotonous Subsequence} & \textbf{$R_k$} &  \textbf{$k^2$}\\
+      \hline
+      1 & 1 & 1\\
+      2 & 2 & 4\\
+      3 & 6 & 9\\
+      4 & 18 & 16\\
+      5 & [43,48] & 25\\
+      6 & [102,165] & 36\\
+      7 & [205,540] & 49\\
+      8 & [282,1870] & 64\\ \hline
+    \end{tabular}
+  \end{center}
+\end{table}
+
+
+
+
+\clearpage
+\iffalse
 
 
 
@@ -696,7 +763,7 @@ $$\mathbf{E}\left(X_{\tau}\right)=\mathbf{E}\left(X_{0}\right)$$
 \end{itemize}
 
 
-Proposition 15$\cdot 3$ (Long-term behavior of trajectories). Let $\left\{B_{t}\right\}_{t \in[0, \infty)}$
+\subsection{Long-term behavior of trajectories}. Let $\left\{B_{t}\right\}_{t \in[0, \infty)}$
 be a Brownian motion. Then,
 $\limsup _{t \rightarrow \infty} \frac{B_{t}}{\sqrt{t}}=\infty,$ and $\liminf _{t \rightarrow \infty} \frac{B_{t}}{\sqrt{t}}=-\infty, a . s$
 
@@ -712,4 +779,23 @@ satisfies $\{T \leq n\} \in \mathcal{F}_{n}$
 Let $T_{a}=\min \{t : B(t)=a\}$ be the first time the standard Brownian motion process hits a. Using the reflection principle we can prove that
 $$\mathrm{P}\left(T_{a} \leq t\right)=2 \mathrm{P}(B(t) \geq a)=2-2 \Phi(a / \sqrt{t})$$
 $$\lim_{t\to\infty}\mathrm{P}\left(T_{a} \leq t\right)=1$$
+
+\subsection{It\^{o}'s Isometry}
+Let $B_t$ be a Brownian Motion and $X_t$ a stochastic process
+$$\mathrm{E}\left[\left(\int_{0}^{T} X_{t} \mathrm{d} B_{t}\right)^{2}\right]=\mathrm{E}\left[\int_{0}^{T} X_{t}^{2} \mathrm{d} t\right]$$
+
+\subsection{Bayes' theorem}
+$$P(A | B)=\frac{P(B | A) P(A)}{P(B)}$$
+where $A$ and $B$ are events and $P(B) \neq 0$
+
+\subsection{Self-financing Portfolios}
+A portfolio, or trading strategy, is any predictable process
+$$\phi=\left(\phi_{0}, \ldots, \phi_{n}\right)$$
+Its corresponding value process is
+$$V(t)=V(t ; \phi) :=\sum_{i=0}^{n} \phi_{i}(t) S_{i}(t)$$
+The portfolio $\phi$ is called self-financing (for $S )$ if the stochastic integrals
+$$\int_{0}^{t} \phi_{i}(u) d S_{i}(u), \quad i=0, \ldots, n$$
+are well defined and
+$$d V(t ; \phi)=\sum_{i=0}^{n} \phi_{i}(t) d S_{i}(t)$$
+
 \end{document}
