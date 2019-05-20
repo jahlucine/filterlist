@@ -798,4 +798,28 @@ $$\int_{0}^{t} \phi_{i}(u) d S_{i}(u), \quad i=0, \ldots, n$$
 are well defined and
 $$d V(t ; \phi)=\sum_{i=0}^{n} \phi_{i}(t) d S_{i}(t)$$
 
+
+
+\subsection{Table Seating -sol} Let us say the drunk person's seat is the number $1$ and the last person's assigned seat is $n$. If at any moment a displaced person randomly chooses the seat number $n$ then the last person cannot get his assigned seat. But the critical remark is that if at any time a displaced person randomly chooses the seat number $1$ then the last person get his assigned seat. The chain of displaced guests is a cyclical permutation of the chain of assigned seats and chossing the seat $1$ closes the cycle.\\
+\begin{table}[h!]
+  \begin{center}
+    \label{tab:table1}
+    \begin{tabular}{|c|c|c|c|c|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \hline
+      Guest & k & 1 & i & j\\ \hline
+     Seat & 1 & i & j & k\\ \hline
+    \end{tabular}
+  \end{center}
+\end{table}
+\\
+Therefore as long as the seats $1$ and $n$ are available the choice when $k$ seats are available is as follows
+\[
+\begin{cases}
+   p=\frac{1}{k} \text{~to pick 1, the last person is not displaced} \\
+   p=\frac{1}{k} \text{~to pick n, the last person is displaced} \\
+   p=\frac{k-2}{k} \text{~to pick another seat, the choice between 1 and n is postponed} \\
+\end{cases}
+\]
+we can ignore how often the choice between $1$ and $n$ is potponed, when it finally happens the probabilities to choose $1$ or $n$ are equal. The probability that the last person gets his assigned seat is $\frac{1}{2}$.
+
 \end{document}
