@@ -822,4 +822,21 @@ Therefore as long as the seats $1$ and $n$ are available the choice when $k$ sea
 \]
 we can ignore how often the choice between $1$ and $n$ is potponed, when it finally happens the probabilities to choose $1$ or $n$ are equal. The probability that the last person gets his assigned seat is $\frac{1}{2}$.
 
+\subsection{Om-sol} The objective is to mininize the number of attempts in the worst case. If we had only one egg to solve the problem we would have needed to start at the first floor and to go up one floor for every new attempt. In the worst case we would have needed $100$ attempts. If we have $2$ eggs we can improve this strategy and skip floors when using the first egg. If the first egg breaks we can single out an interval of floors. We can then use the second egg to test the floors in the interval  one by one from the bottom. The crucial question is the choice of intervals to skip with the first egg. We denote $u_i$ the sequence of floors from which the first egg is thrown and $W(k)$ the number of attempts needed in the worst case to solve the problem with 2 eggs and $k$ floors. After the first attempt at $u_1$, if the egg breaks we need try all the floors between $1$ and $u_i-1$. Otherwise we still have $2$ eggs and $(100-u_i)$ remaining floors to test
+$$W(100)=\max\left(u_1,1+W(100-u_1)\right)$$
+we repeat the same reasoning until the $i^{th}$ floor
+$$W(100)=\max\left(u_1,u_2-u_1+1,u_3-u_2+2,\dots,1+W(100-u_i)\right)$$
+we denote $v_i$ the increments sequence $v_i=u_i-u_{i-1}$, and $v_1=u_1$. The equation becomes
+$$W(100)=\max\left(v_1,v2+1,v_3+3,\dots,1+W\left(100-\sum_{k=1}^i v_k\right)\right)$$
+and the full formula for the number of attempts is
+$$W(100)=\max\left(v_1,v2+1,v_3+2,\dots,v_n+n-1\right)$$
+we minimize this maximum when all the arguments are equal. On the other hand the increments sum to 100
+$$\sum_{k=1}^n v_k=100$$
+We denote $M=v_i+i-1$, and for a given $n$ the condition on $M$ is
+$$\sum_{k=1}^n \left( M-k+1\right)=nM+n-\sum_{k=1}^n k>100$$
+$$M>\frac{100}{n}-1+\frac{n+1}{2}$$
+we calculate the derivative of the right side to find that the minimum is reached for $n=\sqrt{200}\approx14.14$ and therefore $M=15$. In the worst case we will need $15$ attempts and the sequence of floors to test with the first egg is
+$$15,29,42,54,65,75,84,92,99,100$$
+\clearpage
+
 \end{document}
