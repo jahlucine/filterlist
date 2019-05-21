@@ -838,5 +838,4 @@ $$M>\frac{100}{n}-1+\frac{n+1}{2}$$
 we calculate the derivative of the right side to find that the minimum is reached for $n=\sqrt{200}\approx14.14$ and therefore $M=15$. In the worst case we will need $15$ attempts and the sequence of floors to test with the first egg is
 $$15,29,42,54,65,75,84,92,99,100$$
 \clearpage
-
 \end{document}
