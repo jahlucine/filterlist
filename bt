@@ -838,4 +838,20 @@ $$M>\frac{100}{n}-1+\frac{n+1}{2}$$
 we calculate the derivative of the right side to find that the minimum is reached for $n=\sqrt{200}\approx14.14$ and therefore $M=15$. In the worst case we will need $15$ attempts and the sequence of floors to test with the first egg is
 $$15,29,42,54,65,75,84,92,99,100$$
 \clearpage
+
+
+\subsection{Om-sol} A tempting strategy for player A is to pick the lowest number 1 and to be guaranteed to lose at most 1. The expected loss of the winning strategy will have to be lower than $1$. The key in this type of question is to observe that both players have access to the same amount of information. Therefore player B will guess the optimal strategy of A and take full advantage of it.
+We denote $p$ the discrete proability distribution that B decides to use for his choice. When player B picks a number he has an expected gain equal to $g_i=p(i).i$. Remember that player B will guess the proabillity distribution $p$, he will try to maximize his gain and player A will minimize the quantity 
+$$M=\max_{i\in[1,100]} g_i$$
+This maximum is minimized when all the elements are equal $p(i).i=\lambda$. We find $\lambda$ using the probability distribution properties
+$$\sum_1^{100} p(i)=\sum_1^{100} \frac{\lambda}{i}=1$$
+$$\lambda=\frac{1}{\sum_1^{100} \frac{1}{i}}\approx \frac{1}{1+\ln(n)}$$
+therefore player A will pick the number $i$ with a probabililty $p(i)=\frac{\lambda}{i}$. The expected loss (gain) for A (B) is $G=p(i).i=\lambda$. The numerical application with $100$ numbers gives $G\approx 0.18$.
+\iffalse
+\subsection{Om-sol} This is a recurrent type of question based on the continuity of a function or its derivative. We denote $x(t)$ the position of the car at time $t$. $x(0)=0$, $x(1)=100$ and the mean value theorem proves that
+$$\exists c\in[0,1]: ~x'(c)=\frac{x(1)-x(0)}{1}=100$$
+Alternatively we can use the intermediate value theorem, if the average speed is $100$ the speed cannot always be higher than $100$, and it cannot always be lower than $100$. There exists therefore a moment $t_h$ where the speed is greater or equal to $100$ and a moment $t_l$ where the speed is lower or equal $100$. Therefore $x'(t_h)\ge 100$ and $x'(t_l)\le100$ and $\exists c: x'(c)=100$.
+
+\subsection{Om-sol}The table is round and the winning strategy in this game is based on the central symmetry of the table. The first player A places his coin at the exact center of the table. Every time B places a coin A can respond by placing his coin in the symmetric position. With this strategy B is forced to discover new areas and A is guaranteed to place a coin. Therefore B will eventually run out of space and A is certain to win.
+
 \end{document}
