@@ -854,4 +854,17 @@ Alternatively we can use the intermediate value theorem, if the average speed is
 
 \subsection{Om-sol}The table is round and the winning strategy in this game is based on the central symmetry of the table. The first player A places his coin at the exact center of the table. Every time B places a coin A can respond by placing his coin in the symmetric position. With this strategy B is forced to discover new areas and A is guaranteed to place a coin. Therefore B will eventually run out of space and A is certain to win.
 
+\subsection{Om-sol} There is an elegant way to solve this problem based on the symmetry by rotation of the players situation. We define $p_A$ (resp. $p_B$, $p_C$) the probability that player A (resp. B, C) wins the game and $p$ as follows
+$$p=P\left\{\text{Player who starts wins the game}\right\}$$
+we see clearly that $p_A=p$. By symmetry, f player A misses his first toss player B finds himself in the position of starting the same game. Therefore
+$$p_B=P\left\{\text{A misses the first toss}\cap\text{Player who starts wins the game}\right\}=\frac{p}{2}$$
+$$p_C=\frac{p}{4}$$
+Also the probability that no one wins is zero
+$$P\left\{\text{No one wins}\right\}=\lim_{\infty}\frac{1}{2}^n=0$$
+and
+$$p_A+p_B+p_C=p+\frac{p}{2}+\frac{p}{4}=1$$
+$$p=\frac{4}{7}=p_A;~p_B=\frac{2}{7};~p_C=\frac{1}{7}$$
+The question can also be solved with series. We find that
+$$p_A=\frac{1}{2}+\frac{1}{2}.\frac{1}{2}^3+\dots+\frac{1}{2}.\frac{1}{2}^{3i}$$
+$$p_A=\frac{1}{2}\sum_{i=0}^{\infty}\frac{1}{8}^{i}=\frac{1}{2}\frac{1}{1-\frac{1}{8}}=\frac{4}{7}$$
 \end{document}
