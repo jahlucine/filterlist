@@ -867,6 +867,14 @@ $$p=\frac{4}{7}=p_A;~p_B=\frac{2}{7};~p_C=\frac{1}{7}$$
 The question can also be solved with series. We find that
 $$p_A=\frac{1}{2}+\frac{1}{2}.\frac{1}{2}^3+\dots+\frac{1}{2}.\frac{1}{2}^{3i}$$
 $$p_A=\frac{1}{2}\sum_{i=0}^{\infty}\frac{1}{8}^{i}=\frac{1}{2}\frac{1}{1-\frac{1}{8}}=\frac{4}{7}$$
+\subsection{Om-sol} In this classic type of question an unexpected equilibrium appears in a system. The best way to understand it is to start with a small number of tigers.
+\begin{itemize}
+\item 1 tiger: the tiger clearly eats the antelope, he does not need to worry about sleeping after the meal.
+\item 2 tigers: if a tiger eats the antelope he gets eaten by the other tiger. Tigers know that and decide to stay still. The system with 2 tigers is a stable system.
+\item 3 tigers: tigers have read this book and know that the 2 tigers system is stable, one of them eats the antelope, falls asleep and  becomes the pray in a stable 2 tiger system.
+\item 4 tigers: tigers know that the 3 tigers system is unstable and prefer not to eat the antelope, the 3 tigers system is stable.
+\end{itemize}
+It appears that systems with an even number of tigers are stable. The antelope is relaxed because she has counted the tigers and found an even number.
 
 \subsection{Om-sol} This is a different version of a classic type of equilibrium puzzles. We start with the cases with a low number of red eyed monks (RE group).
 \begin{itemize}
