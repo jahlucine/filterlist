@@ -867,4 +867,14 @@ $$p=\frac{4}{7}=p_A;~p_B=\frac{2}{7};~p_C=\frac{1}{7}$$
 The question can also be solved with series. We find that
 $$p_A=\frac{1}{2}+\frac{1}{2}.\frac{1}{2}^3+\dots+\frac{1}{2}.\frac{1}{2}^{3i}$$
 $$p_A=\frac{1}{2}\sum_{i=0}^{\infty}\frac{1}{8}^{i}=\frac{1}{2}\frac{1}{1-\frac{1}{8}}=\frac{4}{7}$$
+
+\subsection{Om-sol} This is a different version of a classic type of equilibrium puzzles. We start with the cases with a low number of red eyed monks (RE group).
+\begin{itemize}
+\item Zero RE monk and the tourist lied to them: on the first day all the monks think that they are RE because they cannot see anyone else in RE. At midnight they all commit suicide. This bad prank should not happen because the tourist is assumed to tell the truth.
+\item 1 RE monk: he cannot see anyone else in RE and commits suicide at midnight.
+\item 2 RE monks: RE monks think on the first day that there is only one RE monk and they can see it. But no one commits suicide on the first night. At that point they realize that they are in a system with 2 RE and they both commit suicide on the second night.
+\item 3 RE monks: RE monks think that they are in a system with 2 RE, but no one commits suicide on the second night, they realize that it is a 3 RE system and they all commit suicide on the third night.
+\end{itemize}
+The pattern is clear, in conclusion in a system with $j$ monks they all commit suicide on the $j^{th}$ night.
+
 \end{document}
