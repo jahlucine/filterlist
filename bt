@@ -24,6 +24,45 @@
 
 \begin{document}
 
+Generalized dice
+
+We denote $P(i|j)$ the probability of the player $j$ winning a game started by the player $i$. The probability of no one winning is equal to zero (copy paste). Therefore
+$$P(A|A)+P(B|A)+P(C|A)=1$$
+We can visualize the possible outcomes after A turn
+$$\text{A tosses the coin}\begin{cases}
+  \text{A gets heads with a probability}~\frac{1}{4};~ \text{B wins with a probability}~ P(B|B)\\    
+  \text{A gets tails with a probability}~\frac{1}{4};~ \text{B wins with a probability}~ P(B|C)\\    
+  \text{A gets side with a probability}~\frac{1}{2};~ \text{A wins}
+\end{cases}$$
+and
+$$P(B|A)=\frac{1}{4}P(B|B)+\frac{1}{4}P(B|C)$$
+and by symmetry $P(B|B)=P(A|A)$ and $P(B|C)=P(C|A)$ giving
+$$P(B|A)=\frac{1}{4}P(A|A)+\frac{1}{4}P(C|A)$$
+By symmetry we also have
+$$P(B|A)=P(C|A)$$
+and the system
+$$P(A|A)+2P(B|A)=1$$
+$$\frac{3}{4}P(B|A)=\frac{1}{4}P(A|A)$$
+We find $P(A|A)=\frac{3}{5}$ and $P(B|A)=P(C|A)=\frac{1}{5}$.
+\ifskip
+
+Calculate $\E\left(\exp(X)\right)$ when is $X$ is a normally distributed random variable
+
+
+$$X \sim \mathcal{N}\left(\mu, \sigma^{2}\right)$$
+
+
+$$\E\left(\exp(X)\right)=\InfInt \exp(x) \frac{1}{\sqrt{2 \pi} \sigma} \exp \left(-\frac{(x-\mu)^{2}}{2 \sigma^{2}}\right)dx$$
+
+$$\E\left(\exp(X)\right)= \frac{1}{\sqrt{2 \pi} \sigma}\InfInt \exp \left(\frac{\sigma^{2}x-x^2+2\mu x-\mu^2}{2 \sigma^{2}}\right)dx$$
+
+$$\E\left(\exp(X)\right)= \frac{1}{\sqrt{2 \pi} \sigma}\InfInt \exp \left(\frac{-(x-\left(\sigma^2+\mu)\right)^2}{2 \sigma^{2}}+\frac{\sigma^4+2\mu\sigma^2}{2 \sigma^{2}}\right)dx$$
+
+$$\E\left(\exp(X)\right)= \exp\left(\frac{\sigma^2}{2}+\mu\right)\InfInt  \frac{1}{\sqrt{2 \pi} \sigma}\exp \left(\frac{-(x-\left(\sigma^2+\mu)\right)^2}{2 \sigma^{2}}\right)dx$$
+We identify the integral of the density of a normal distribution equal to $1$ and
+$$\E\left(\exp(X)\right)= \exp\left(\frac{\sigma^2}{2}+\mu\right)$$
+
+
 \iffalse
 
 \subsection{primes}
