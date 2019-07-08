@@ -1,3 +1,68 @@
+import statistics
+
+with open("data-training.csv", "r") as ins:
+    array = []
+    deb=0
+    lastval=0
+    for line in ins:
+        if deb==0:
+            print(line)
+            arr = line.split(",")
+            print(arr[30:45])
+        if deb>0:
+            arr = line.split(",")
+            askrate=arr[0:15]
+            askrate=[x for x in askrate if x]
+            print(askrate)
+            askrate = [float(i) for i in askrate]
+            print(askrate)
+            print(statistics.mean(askrate))
+            askmean=statistics.mean(askrate)
+            bidrate=arr[30:45]
+            bidrate=[x for x in bidrate if x]
+            bidrate = [float(i) for i in bidrate]
+            print(statistics.mean(bidrate))
+            bidmean=statistics.mean(bidrate)
+            if lastval>0:
+                yy=(bidmean+bidrate)/2
+            input()
+        deb=deb+1
+        
+
+\subsection{part1}
+$X$ r.v. with density $f_x$ and cumulative $F_x$
+$$Y=F_x(X)$$
+$$c\in[0,1];~Pr(Y<c)=Pr(F_x(X)<c)=c$$
+$$F_y(c)=c;~f_y(c)=1;~Y\sim U(0,1)$$
+We consider a stock process coupled with stochastic interest rates (Vasicek model)
+$$\mathrm { d } r _ { t } = \left( \theta _ { t } - \kappa r _ { t } \right) \mathrm { d } t + \sigma _ { t } ^ { r } \mathrm { d } B _ { t } ^ { r }$$
+$$\frac { \mathrm { d } S _ { t } } { S _ { t } } =  r _ { t } \mathrm { d } t + \sigma _ { t } ^ { S } \mathrm { d } B _ { t } ^ { S }$$
+Integrating the rates equation using the process $Y_t=r_t\exp(\kappa t)$ (see \ref{}) we have
+$$r _ { T } =[\text{deterministic terms}] +  \int _ { t } ^ { T } \exp ( \kappa ( u - T ) ) \sigma _ { u } ^ { r } \mathrm { d } B _ { u }$$
+We can focus on the stochastic terms as we want to calculate the variance of the combined process. Using Ito formula with $Z_t=\ln(S_t)$ we find the stock process
+$$S_T=S_t\exp \left( \int _ { t } ^ { T } r _ { s } \mathrm { d } s -\int _ { t } ^ { T } \frac{(\sigma_s^S)^2}{2} \mathrm { d } s+\int _ { t } ^ { T } \sigma _ { s } ^ { S } \mathrm { d } B _ { s } ^ { S } \right)$$
+we calculate the $r_t$ term
+$$A(t,T)=  \exp \left(  \int _ { t } ^ { T } r _ { s } \mathrm { d } s \right)$$
+$$A(t,T) =  \exp \left([\text{drift terms}] + \int _ { s=t } ^ { s=T} \int _ { u=t } ^ { u=s } \exp ( \kappa ( u - s ) ) \sigma _ { u } ^ { r } \mathrm { d } B _ { u } ^ { r } \mathrm { d } s \right)$$
+$$A(t,T) =   \exp \left( [\text{drift terms}] + \int _ { u=t } ^ { u=T} \int _ { s=u } ^ { s=T }  \exp ( \kappa ( u - s ) ) \sigma _ { u } ^ { r } \mathrm { d } s \mathrm { d } B _ { u } ^ { r }  \right)$$
+$$A(t,T)=  \exp \left(  [\text{drift terms}]+ \int _ { u=t } ^ { u=T} \frac { 1 - \exp ( \kappa ( u - T ) ) } { \kappa } \sigma _ { u } ^ { r }\mathrm { d } B _ { u } ^ { r }  \right)$$
+Note that $A(t,T)$ is the inverse of the zero-coupon bond. We have now all the stochastic terms of $S_t$
+$$S_T=S_t\exp \left( [\text{drift terms}]+\int _ { t } ^ { T } \sigma _ { s } ^ { S } \mathrm { d } B _ { s } ^ { S } + \int _ { t } ^ { T} \frac { 1 - \exp ( \kappa ( u - T ) ) } { \kappa } \sigma _ { u } ^ { r }\mathrm { d } B _ { u } ^ { r } \right)$$
+we set $t=0$, the variance of $S_T$ is
+$$V _ { T } = \int _ { 0 } ^ { T } \left( \left( \sigma _ { t } ^ { S } \right) ^ { 2 } + 2 \rho \sigma _ { t } ^ { S } \alpha(t,T) \sigma _ { t } ^ { r } + \alpha(t,T) ^ { 2 } \left( \sigma _ { t } ^ { r } \right) ^ { 2 } \right) \mathrm { d } t$$
+where
+$$\alpha(t,T)=\frac { 1 - \exp ( \kappa ( u - T ) ) } { \kappa }$$
+and this formula can be used to calibrate the model
+$$\sigma _ { \mathrm { imp } , T } ^ { 2 } =\frac{V _ { T } }{T}$$
+
+\clearpage
+see all faces dice\\
+fix dt i.e.\\
+integrale kent\\
+x + Y gaussian\\
+w1>0w2>0\\
+disttribution cumulative
+
 \documentclass{article}
 \usepackage{amsmath,graphicx,calc,bbm}
 \usepackage{amssymb}
