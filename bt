@@ -1,3 +1,40 @@
+\subsection{part1}
+Calculate the greeks $\Delta$, $\Gamma$, $\mathcal{V}$,  $\rho$, $\Theta$.
+
+\subsection{part2}
+We denote $C$ the price of the call option at $t=0$, $\phi$ the standard normal cumulative distributrion and $f=\phi'$ the standard normal density function.
+$$C=S_0\phi(d_1)-Ke^{-rT}\phi(d_2)$$
+$$d_1=\frac{ln\Big(\frac{S_0}{K}\Big)+rT+\frac{\sigma^2T}{2}}{\sigma\sqrt{T}} ~,~ d_2=\frac{ln\Big(\frac{S_0}{K}\Big)+rT-\frac{\sigma^2T}{2}}{\sigma\sqrt{T}}=d_1-\sigma\sqrt{T}$$
+We start with an identity that will help us for all the greeks
+$$f(d_2)=\frac{1}{\sqrt{2\pi}}\exp\left(\frac{-d_2^2}{2}\right)=\frac{1}{\sqrt{2\pi}}\exp\left(\frac{-d_1^2}{2}\right)\exp\left(d_1\sigma\sqrt{T}\right)\exp\left(\frac{-\sigma^2T}{2}\right)$$
+\begin{equation} \label{greekc}
+f(d_2)=\frac{1}{\sqrt{2\pi}}\exp\left(\frac{-d_1^2}{2}\right)\frac{S_0}{K}\exp(rT)=f(d_1)\frac{S_0}{K}e^{rT}
+\end{equation}
+\subsubsection{$\Delta$}
+$$\Delta=\frac{\partial C}{\partial S_0}=\phi(d_1)+S_0f(d_1)\frac{\partial d_1}{\partial S_0}-Ke^{-rT}f(d_2)\frac{\partial d_2}{\partial S_0}$$
+$$\Delta=\phi(d_1)+f(d_1)\frac{1}{\sigma\sqrt{T}}-Ke^{-rT}f(d_2)\frac{S_0}{\sigma\sqrt{T}}$$
+And using the equation \ref{greekc}
+$$\Delta=\phi(d_1)$$
+\subsubsection{$\Gamma$}
+$$\Gamma=f(d_1)\frac{1}{S_0\sigma\sqrt{T}}$$
+\subsubsection{$\mathcal{V}$}
+$$\mathcal{V}=\frac{\partial C}{\partial \sigma}=S_0f(d_1)\frac{\partial d_1}{\partial \sigma}-Ke^{-rT}f(d_2)\frac{\partial d_2}{\partial \sigma}$$
+$$\mathcal{V}=\frac{\partial C}{\partial \sigma}=S_0f(d_1)\frac{\partial d_1}{\partial \sigma}-Ke^{-rT}f(d_2)\left(\frac{\partial d_1}{\partial \sigma}-\sqrt{T}\right)$$
+And using equation \ref{greekc}
+$$\mathcal{V}=Ke^{-rT}f(d_2)\sqrt{T}=S_0f(d_1)\sqrt{T}$$
+\subsubsection{$\rho$}
+$$\rho=\frac{\partial C}{\partial r}=S_0f(d_1)\frac{\partial d_1}{\partial r}+TKe^{-rT}\phi(d_2)-Ke^{-rT}f(d_2)\frac{\partial d_2}{\partial r}$$
+$$\rho=S_0f(d_1)\frac{\sqrt{T}}{\sigma}+TKe^{-rT}\phi(d_2)-Ke^{-rT}f(d_2)\frac{\sqrt{T}}{\sigma}$$
+And using equation \ref{greekc}
+$$\rho=TKe^{-rT}\phi(d_2)$$
+\subsubsection{$\Theta$}
+$$\Theta=\frac{\partial C}{\partial T}=S_0f(d_1)\frac{\partial d_1}{\partial T}+rKe^{-rT}\phi(d_2)-Ke^{-rT}f(d_2)\frac{\partial d_2}{\partial T}$$
+$$\Theta=S_0f(d_1)\frac{\partial d_1}{\partial T}+rKe^{-rT}\phi(d_2)-Ke^{-rT}f(d_2)\left(\frac{\partial d_1}{\partial T}-\frac{\sigma}{2\sqrt{T}}\right)$$
+And using equation \ref{greekc}
+$$\Theta=rKe^{-rT}\phi(d_2)+Ke^{-rT}f(d_2)\frac{\sigma}{2\sqrt{T}}$$
+\clearpage
+
+
 import statistics
 
 with open("data-training.csv", "r") as ins:
