@@ -1,3 +1,19 @@
+
+\subsection{Forward start option}
+Calculate the price of a Forward Start Option with payoff
+$$\text{Fs}_ { T } =e^{-rT}\E_0\left( \left( S _ { T } - S _ { t _ { 0 } } \right) ^ { + }\right)$$
+
+\subsection{Solution}
+We can decompose the price of the option as follows
+$$\text{Fs}_ { T } =e^{-rT}\E_0\left( S _ { t _ { 0 }}\left( \frac{S _ { T }}{S _ { t _ { 0 }}} - 1  \right) ^ { + }\right)$$
+$$\text{Fs}_ { T } =e^{-rT}\E_0\left( S_0\exp\left(rt_0-\frac{\sigma^2t_0}{2}+\sigma B_{t_0}\right)\left(\exp\left(r\tau-\frac{\sigma^2\tau}{2}+\sigma (B_{T}-B_{t_0})\right) - 1  \right) ^ { + }\right)$$
+where $\tau=T-t_0$. $(B_{T}-B_{t_0})$ and $B_{t_0}$ are independent and
+$$\E_0\left( S_0\exp\left(rt_0-\frac{\sigma^2t_0}{2}+\sigma B_{t_0}\right)\right)=S_0e^{-rt_0}$$
+Therefore
+$$\text{Fs}_ { T } =e^{-r(T-t_0)}\E_0\left( \left(S_0\exp\left(r\tau-\frac{\sigma^2\tau}{2}+\sigma (B_{T}-B_{t_0})\right) - S_0  \right) ^ { + }\right)$$
+$(B_{T}-B_{t_0})$ and $B_{\tau}$ have the same law and we identify the price of a call option with maturity $(T-t_0)$, rates $r$, strike $S_0$ and spot $S_0$.
+
+
 \subsection{part1}
 $X$ r.v. with density $f_x$ and cumulative $F_x$
 $$Y=F_x(X)$$
