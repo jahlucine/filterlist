@@ -1,3 +1,344 @@
+\documentclass[12pt]{extarticle}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{epsfig}
+\usepackage{lipsum}
+\usepackage{datetime}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                       BEGINNING OF PREAMBLE                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcommand{\eqdef}{\stackrel{\rm def}{=}}
+\newcommand{\eqquest}{\stackrel{\rm def}{?}}
+\newcommand{\bitset}{\{0,1\}}
+\newcommand{\rnd}{\in_R}
+\newcommand{\ov}{\overline}
+\newcommand{\e}{\epsilon}
+\newcommand{\union}{{\cup}}
+
+
+\newenvironment{summary}{\begin{quote} {\bf Summary:}}{\end{quote}}
+
+
+\newcommand{\bibref}[1]{[\ref{#1}]}
+\renewcommand{\cite}[1]{[\ref{#1}]}
+
+%\newcommand{\eqref}[1]{Eq.~(\ref{#1})}
+
+\newcommand{\anote}[1]{\begin{quote}
+                       {\sf Tal's Note}: {\sl{#1}} \end{quote}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\newcommand{\GEN}{\mathbf{GEN}}
+\newcommand{\ENC}{\mathbf{ENC}}
+\newcommand{\DEC}{\mathbf{DEC}}
+
+% Big O, small o (Andrew)
+\newcommand{\bigO}{{\mathop{\rm O}}}
+\newcommand{\smallo}{{\mathop{\rm o}}}
+
+
+% Complexity classes
+
+%\newcommand{\PCP}{\textsf{PCP}}
+%\newcommand{\NEXP}{\textsf{NEXP}}
+
+\newcommand{\logspace}{\textsf{L}}     % logarithmic space (Andrej)
+\newcommand{\RL}{\textsf{RL}}
+\newcommand{\NL}{\textsf{NL}}
+\newcommand{\polytime}{\textsf{P}}     % polynomial time (Andrej)
+\newcommand{\NP}{\textsf{NP}}          % NP (Andrej)
+\newcommand{\coNP}{\textsf{coNP}}
+\newcommand{\RP}{\textsf{RP}}
+\newcommand{\BPP}{\textsf{BPP}}
+\newcommand{\ZPP}{\textsf{ZPP}}
+\newcommand{\coNL}{\textsf{coNL}}
+\newcommand{\coRP}{\textsf{coRP}}
+
+\newcommand{\EXP}{\textsf{EXP}}        % exponential time (Andrej)
+\newcommand{\PSPACE}{\textsf{PSPACE}}
+\newcommand{\ACZ}{\textsf{AC}^0}
+\newcommand{\IP}{\textsf{IP}}
+\newcommand{\AM}{\textsf{AM}}
+\newcommand{\coAM}{\textsf{coAM}}
+
+%Logical operators (Andrew)
+\newcommand{\AND}{\land}
+\newcommand{\OR}{\lor}
+\newcommand{\NOT}{\neg}
+\newcommand{\EQUIV}{\;\Longleftrightarrow\;}
+\newcommand{\IMPLY}{\;\Longrightarrow\;}
+
+% Useful Symbols
+\newcommand{\qed}{\hspace*{\fill}\rule{7pt}{7pt}}
+\newcommand{\xor}{\oplus}
+\newcommand{\Xor}{\bigoplus}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\for}[3]{{\sf for}\hspace{3pt} #1 = #2\hspace{3pt}{\sf to}\hspace{3pt}#3:}
+\newcommand{\pr}[1]{{\rm Pr}\left[ #1 \right]}
+\newcommand{\ignore}[1]{}
+
+
+% variable size parens in math mode (pfr)
+\newcommand{\lp}{\ensuremath{\left (}}
+\newcommand{\rp}{\ensuremath{\right )}}
+
+%easy way to represent a pair (pfr)
+\newcommand{\pair}[2]{\ensuremath{\langle}#1,\nolinebreak#2\ensuremath{\rangle}}
+
+%Useful way to make notes for yourself or your editor
+\newcommand{\mycomment}[1]{{\bf $<$#1$>$}}
+
+%Contradiction symbol
+%\def\contrad{\ensuremath{\ \Rightarrow \Leftarrow \ }}
+
+
+% Communication complexity (Andrew)
+%\newcommand{\cost}{\textsf{COST}}
+
+% Turing Machines
+%\newcommand{\qstart}{\mbox{$q_{start}$}}
+%\newcommand{\qaccept}{\mbox{$q_{accept}$}}
+%\newcommand{\qreject}{\mbox{$q_{reject}$}}
+%\newcommand{\blank}{\mbox{$\Box$}}
+
+
+% Number sets
+\newcommand{\Nats}{\ensuremath{\mathbb{N}}}   % Natural numbers
+\newcommand{\Reals}{\ensuremath{\mathbb{R}}}  % Real numbers
+\newcommand{\Ints}{\ensuremath{\mathbb{Z}}}   % Integers
+\newcommand{\CC}{\ensuremath{\mathbb{C}}}     % Complex numbers
+\newcommand{\QQ}{\ensuremath{\mathbb{Q}}}     % rational numbers
+
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\Zp}{{\mathbb Z}_p}
+\newcommand{\Zn}{{\mathbb Z}_n}
+%\newcommand{\mod}{\mbox{\rm \  mod\ }}
+\newcommand{\modp}{\mbox{\rm \ (mod $p$)}}
+\newcommand{\modn}{\mbox{\rm \ (mod $n$)}}
+
+
+%Macros for describing sets and functions (Andrew)
+%
+% It is *bad* to write $f: A \to B$, because that ':' doesn't come out right.
+% Use $f \cc A \to B$ instead. (Andrew)
+\newcommand{\cc}{\colon\thinspace}
+%
+% When you describe a set, like {f(x) | x < 10}, you shouldn't
+% write $\{ f(x) | x < 10 \}$ because that won't put enough space around |.
+% Use $\{f(x) \such x < 10 \}$ instead. (Andrew)
+%
+\newcommand{\such}{\; | \;}
+\newcommand{\suchthat}{\; : \;}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Theorems are environments with numbering schemes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newtheorem{theorem}{Theorem}      % A counter for Theorems etc
+\newcommand{\BT}{\begin{theorem}}
+\newcommand{\ET}{\end{theorem}}
+%---
+\newtheorem{conjecture}[theorem]{Conjecture}
+%---
+\newtheorem{definition}{Definition}      %
+\newcommand{\BD}{\begin{definition}}
+\newcommand{\ED}{\end{definition}}
+%---
+\newtheorem{corollary}[theorem]{Corollary}      %
+\newcommand{\BCR}{\begin{corollary}}
+\newcommand{\ECR}{\end{corollary}}
+%---
+\newtheorem{example}{Example}
+\newcommand{\BEX}{\begin{example}}
+\newcommand{\EEX}{\end{example}}
+%---
+\newtheorem{lemma}[theorem]{Lemma}  % A counter for Lemmas etc
+\newcommand{\BL}{\begin{lemma}}
+\newcommand{\EL}{\end{lemma}}
+%---
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\BP}{\begin{proposition}}
+\newcommand{\EP}{\end{proposition}}
+%---
+\newtheorem{claim}[theorem]{Claim}            %
+\newcommand{\BCM}{\begin{claim}}
+\newcommand{\ECM}{\end{claim}}
+%---
+\newtheorem{fact}[theorem]{Fact}            %
+\newcommand{\BF}{\begin{fact}}
+\newcommand{\EF}{\end{fact}}
+%---
+\newenvironment{proof_sketch}{\QuadSpace\par\noindent{\bf Proof sketch}:}{\qed}
+\newenvironment{proof}{\noindent{\bf Proof:~~}}{\qed}
+\newcommand{\BPF}{\begin{proof}}
+\newcommand{\EPF}{\end{proof}}
+%---
+\newcommand{\BE}{\begin{enumerate}}
+\newcommand{\EE}{\end{enumerate}}
+\newcommand{\BI}{\begin{itemize}}
+\newcommand{\EI}{\end{itemize}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%% \newtheorem{theorem}{Theorem}[section]
+%%%% \newtheorem{lemma}[theorem]{Lemma}
+%%%% \newtheorem{corollary}[theorem]{Corollary}
+%%%% \newtheorem{definition}{Definition}[section]
+%%%% \newtheorem{fact}{Fact}
+%%%% \newtheorem{assumption}{Assumption}
+%%%% \newtheorem{example}{Example}[example]
+%%%%
+%%%% \newenvironment{proof}{\QuadSpace\par\noindent{\bf Proof}:}{\EndProof\QuadSpace}
+%%%% \newenvironment{notation}{\QuadSpace\par\noindent{\bf Notation}:}{\QuadSpace}
+%%%% \newenvironment{intuition}{\begin{quote}\par\noindent{\bf Intuition}:}{\end{quote}}
+%%%% \newenvironment{note}{\QuadSpace\par\noindent{\bf Note}:}{\QuadSpace}
+%%%% \newenvironment{convention}{\QuadSpace\par\noindent{\bf Convention}:}{\QuadSpace}
+%%%% \newenvironment{example}{\QuadSpace\par\noindent{\bf Example}:}{\QuadSpace}
+%%%% \newenvironment{question}{\QuadSpace\par\noindent{\bf Question}:}{\QuadSpace}
+\newenvironment{remark}{\QuadSpace\par\noindent{\bf Remark}:}{\QuadSpace}
+%%%% \newenvironment{observation}{\QuadSpace\par\noindent{\bf Observation}:}{\QuadSpace}
+%%%% \newenvironment{proposition}{\QuadSpace\par\noindent{\bf Proposition}:}{\QuadSpace}
+%%%% \newenvironment{claim}{\QuadSpace\par\noindent{\bf Claim}:}{\QuadSpace}
+
+\newcommand{\QuadSpace}{\vspace{0.25\baselineskip}}
+\newcommand{\HalfSpace}{\vspace{0.5\baselineskip}}
+\newcommand{\FullSpace}{\vspace{1.0\baselineskip}}
+\newcommand{\EndProof}{ \hfill \vrule width 1ex height 1ex depth 0pt }
+\newdate{date}{06}{09}{2019}
+\title{Titre}
+\author{Auteur}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\lipsum[1-1]
+\end{abstract}
+
+\section{Introduction}
+
+The Riemann zeta function is the function of the complex variable $s,$ defined in the half-plane $\Re(s)>1$ by the absolutely convergent series
+$$
+\zeta(s) :=\sum_{n=1}^{\infty} \frac{1}{n^{s}}
+$$
+$\zeta$ is also defined in the half-plane $\Re(s)>1$ by the Euler product
+$$
+\zeta(s)=\prod_{p}\left(1-p^{-s}\right)^{-1}
+$$
+where $p$ ranges over all primes.
+\bibliographystyle{plain}
+\bibliography{M335}
+
+\end{document}
+
+
+
+
+
+
+\subsection{FP}
+Derive the Fokker Planck equation
+$$
+\frac{\partial \rho}{\partial t}=-\frac{\partial(\rho \mu)}{\partial x}+\frac{1}{2} \frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}}
+$$
+
+\subsection{FP}
+We consider a stochastic process defined by
+$$d X _ { t } = \mu \left( X _ { t } \right) d t + \sigma \left( X _ { t } \right) d W _ { t }$$
+the transition density $\rho ( x , t | y , s ) $ is defined by
+$$\begin{aligned} \int _ { A } \rho ( x , t | y , s ) d x & = \operatorname { Pr } \left[ X _ { t + s } \in A | X _ { s } = y \right] \\ & = \operatorname { Pr } \left[ X _ { t } \in A | X _ { 0 } = y \right] \end{aligned}$$
+Consider a differentiable function $V \left( X _ { t } , t \right) = V ( x , t )$ with $V \left( X _ { t } , t \right) = 0$ for
+$t \notin ( 0 , T ) .$ Then by Ito's Lemma
+$$d V = \left[ \frac { \partial V } { \partial t } + \mu \frac { \partial V } { \partial x } + \frac { 1 } { 2 } \sigma ^ { 2 } \frac { \partial ^ { 2 } V } { \partial x ^ { 2 } } \right] d t + \left[ \sigma \frac { \partial V } { \partial x } \right] d W _ { t }$$
+So that
+$$
+V\left(X_{T}, T\right)-V\left(X_{0}, 0\right)=\int_{0}^{T}\left[\frac{\partial V}{\partial t}+\mu \frac{\partial V}{\partial x}+\frac{1}{2} \sigma^{2} \frac{\partial^{2} V}{\partial x^{2}}\right] d t+\int_{0}^{T}\left[\sigma \frac{\partial V}{\partial x}\right] d W_{t}
+$$
+where $\mu=\mu\left(X_{t}\right)$ and $\sigma=\sigma\left(X_{t}\right)$ for notational convenience. Take the conditional expectation of both sides given $X_{0}$
+$$
+\begin{aligned} & E\left[V\left(X_{T}, T\right)-V\left(X_{0}, 0\right)\right] \\=& E \int_{0}^{T}\left[\frac{\partial V}{\partial t}+\mu \frac{\partial V}{\partial x}+\frac{1}{2} \sigma^{2} \frac{\partial^{2} V}{\partial x^{2}}\right] d t+E \int_{0}^{T}\left[\sigma \frac{\partial V}{\partial x}\right] d W_{t} \\=& \int_{\mathbb{R}}\left\{\int_{0}^{T}\left[\frac{\partial V}{\partial t}+\mu \frac{\partial V}{\partial x}+\frac{1}{2} \sigma^{2} \frac{\partial^{2} V}{\partial x^{2}}\right] d t\right\} \rho(x, t | y, s) d x \end{aligned}
+$$
+In this note, all expectations are expectations conditional on $X_{0},$ so that $E[\cdot]=$
+$E\left[\cdot | X_{0}=y\right] .$ since $E\left[d W_{t}\right]=0,$ the second term in the middle line of equation
+(2) drops out. Hence, we can write equation $(2)$ as three integrals
+$$
+\int_{\mathbb{R}} \int_{0}^{T} \rho \frac{\partial V}{\partial t} d t d x+\int_{\mathbb{R}} \int_{0}^{T} \rho \mu \frac{\partial V}{\partial x} d t d x+\frac{1}{2} \int_{\mathbb{R}} \int_{0}^{T} \rho \sigma^{2} \frac{\partial^{2} V}{\partial x^{2}} d t d x=I_{1}+I_{2}+I_{3}
+$$
+where $\rho=\rho(x, t | y, s)$ for notational convenience. The objective of the derivation
+is to apply integration by parts to get rid of the derivatives of $V .$
+2.1 Evaluation of the Integrals
+The trick is that $I_{1}$ is evaluated using integration by parts on $t,$ while $I_{2}$ and $I_{3}$
+are each evaluated using integration by parts on $x .$
+2.1.1 Evaluation of $I_{1}$
+Use $u=\rho, v^{\prime}=\frac{\partial V}{\partial t}$ so that $u^{\prime}=\frac{\partial \rho}{\partial t}$ and $v=V .$ Hence for the inside integrand
+of $I_{1}$ we have
+$$
+\begin{aligned} \int_{0}^{T} \rho \frac{\partial V}{\partial t} d t &=\left.\rho V\right|_{0} ^{T}-\int_{0}^{T} \frac{\partial \rho}{\partial t} V d t=-\int_{0}^{T} \frac{\partial \rho}{\partial t} V d t \\ \text { since at the boundaries } 0 \text { and } T, V &=0 . \text { Hence } \\ I_{1}=& \int_{\mathbb{R}} \int_{0}^{T} \frac{\partial \rho}{\partial t} V(x, t) d t d x \end{aligned}
+$$
+2.1.2 Evaluation of $I_{2}$
+Change the order of integration in $I_{2}$ and write it as
+$$
+I_{2}=\int_{0}^{T} \int_{\mathbb{R}} \rho \mu \frac{\partial V}{\partial x} d x d t
+$$
+Use integration by parts on the integrand, with $u=\rho \mu, v^{\prime}=\frac{\partial V}{\partial x}$ so that $u^{\prime}=$
+$\frac{\partial(\rho \mu)}{\partial x}, v=V$
+$$
+\int_{\mathbb{R}} \rho \mu \frac{\partial V}{\partial x} d x=\left.\rho \mu V\right|_{\mathbb{R}}-\int_{\mathbb{R}} \frac{\partial(\rho \mu)}{\partial x} V d x
+$$
+Hence the integral can be evaluated as
+$$
+\begin{aligned} I_{2} &=-\int_{0}^{T} \int_{\mathbb{R}} \frac{\partial(\rho \mu)}{\partial x} V(x, t) d x d t \\ &=-\int_{\mathbb{R}} \int_{0}^{T} \frac{\partial(\rho \mu)}{\partial x} V(x, t) d t d x \end{aligned}
+$$
+2.1.3 Evaluation of $I_{3}$
+Finally, the evaluation of the integrand of $I_{3}$ requires the application of inte-
+gration by parts on $x$ twice. This is because in the integrand we want to get
+rid of the $\frac{\partial^{2} V}{\partial x^{2}}$ term and end up with $V(x, t)$ only. Again, change the order of
+integration and write $I_{3}$ as
+$$
+\frac{1}{2} \int_{0}^{T} \int_{\mathbb{R}} \rho \sigma^{2} \frac{\partial^{2} V}{\partial x^{2}} d x d t
+$$
+For the first integration by parts use $u=\rho \sigma^{2}, v^{\prime}=\frac{\partial^{2} V}{\partial x^{2}}$ so that $u^{\prime}=\frac{\partial\left(\rho \sigma^{2}\right)}{\partial x}$ and
+$v=\frac{\partial V}{\partial x}$ . Hence the integrand can be written
+$$
+\begin{aligned} \int_{\mathbb{R}} \rho \sigma^{2} \frac{\partial^{2} V}{\partial x^{2}} d x &=\left.\rho \sigma^{2} \frac{\partial V}{\partial x}\right|_{\mathbb{R}}-\int_{\mathbb{R}} \frac{\partial\left(\rho \sigma^{2}\right)}{\partial x} \frac{\partial V}{\partial x} d x \\ &=-\int_{\mathbb{R}} \frac{\partial\left(\rho \sigma^{2}\right)}{\partial x} \frac{\partial V}{\partial x} d x \end{aligned}
+$$
+Apply integration by parts again, with $u=\frac{\partial\left(\rho \sigma^{2}\right)}{\partial x}, v^{\prime}=\frac{\partial V}{\partial x}, u^{\prime}=\frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}}, v=V$
+$$
+\begin{aligned}-\int_{\mathbb{R}} \frac{\partial\left(\rho \sigma^{2}\right)}{\partial x} \frac{\partial V}{\partial x} d x &=-\left.\frac{\partial\left(\rho \sigma^{2}\right)}{\partial x} V\right|_{\mathbb{R}}+\int_{\mathbb{R}} \frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}} V d x \\ &=\int_{\mathbb{R}} \frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}} V(x, t) d x \end{aligned}
+$$
+This implies that $I_{3}$ can be written as
+$$
+\frac{1}{2} \int_{0}^{T} \int_{\mathbb{R}} \frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}} V d x d t=\frac{1}{2} \int_{\mathbb{R}} \int_{0}^{T} \frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}} V(x, t) d t d x
+$$
+2.1.4 Obtaining the Equation
+Substitute equations $(3),(4),$ and $(5)$ into equation $(2)$
+$$
+\begin{aligned} & E\left[V\left(X_{T}, T\right)\right]-V\left(X_{0}, 0\right) \\=&-\int_{\mathbb{R}} \int_{0}^{T} \frac{\partial p}{\partial t} V(x, t) d t d x-\int_{\mathbb{R}} \int_{0}^{T} \frac{\partial(\rho \mu)}{\partial x} V(x, t) d t d x \\ &+\frac{1}{2} \int_{\mathbb{R}} \int_{0}^{T} \frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}} V(x, t) d t d x \\=& \int_{\mathbb{R}} \int_{0}^{T} V(x, t)\left[-\frac{\partial \rho}{\partial t}-\frac{\partial(\rho \mu)}{\partial x}+\frac{1}{2} \frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}}\right] d t d x \end{aligned}
+$$
+since $V\left(X_{t}, t\right)=0$ for $t \notin(0, T)$ we have $V\left(X_{T}, T\right)=V\left(X_{0}, 0\right)=0$ so that
+$E\left[V\left(X_{T}, T\right)\right]-V\left(X_{0}\right)=0 .$ This implies that the portion of the integrand in
+the brackets is zero
+$$
+-\frac{\partial \rho}{\partial t}-\frac{\partial(\rho \mu)}{\partial x}+\frac{1}{2} \frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}}=0
+$$
+from which the Fokker-Planck equation can be obtained
+$$
+\frac{\partial \rho}{\partial t}=-\frac{\partial(\rho \mu)}{\partial x}+\frac{1}{2} \frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}}
+$$
+
+
+
+
 \subsection{Exchange Option}
 
 Find the price of the exchange option
