@@ -235,14 +235,16 @@ $\zeta$ is also defined in the half-plane $\Re(s)>1$ by the Euler product
 $$
 \zeta(s)=\prod_{p}\left(1-p^{-s}\right)^{-1}
 $$
-where $p$ ranges over all primes.
+where $p$ ranges over all primes. The Euler product implies that 
+$$
+\frac{1}{\zeta(s)}=\prod_{p}\left(1-\frac{1}{p^{s}}\right)=\sum_{n=1}^{\infty} \frac{\mu(n)}{n^{t}}
+$$
+where $\mu$ the Mobius function is defined by
+$$\mu(n)=\left\{\begin{array}{cl}{1} & {\text { if } n=1} \\ {0} & {\text { if } n \text { is not square-free }} \\ {(-1)^{r}} & {\text { if } n \text{ is a product of } r \text{ distinct primes }}\end{array}\right.$$
 \bibliographystyle{plain}
 \bibliography{M335}
 
 \end{document}
-
-
-
 
 
 
