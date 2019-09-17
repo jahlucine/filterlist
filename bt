@@ -227,6 +227,49 @@
 
 \section{Introduction}
 
+
+The M\"{o}bius function $\mu(n)$ is defined, for positive integers $n,$ as
+$$\mu(n)=\left\{\begin{array}{cl}{1} & {\text { if } n=1} \\ {0} & {\text { if } n \text { is not square-free }} \\ {(-1)^{r}} & {\text { if } n \text{ is a product of } r \text{ distinct primes }}\end{array}\right.$$
+Then, for every real number $x \geq 0$ , the summation of the Möbius
+function is defined by taking
+$$
+M(x)=M(\lfloor x\rfloor) :=\sum_{k=1}^{\lfloor x\rfloor} \mu(k)
+$$
+The behaviour of $M(x)$ is rather erratic and difficult of analyze, but it is very important
+in analytic number theory. In $1912,$ J.E. Littlewood $[4]$ proved that the Riemann Hypothesis
+is equivalent to this fact:
+$$
+|M(x)|=O\left(x^{1 / 2+\varepsilon}\right), \quad \text { when } x \rightarrow \infty, \quad \text { for every } \varepsilon>0
+$$
+Let us begin by recalling the following well-known property of the M\"{o}bius function:
+$$
+\sum_{d | n} \mu(d)=\left\{\begin{array}{ll}{1} & {\text { if } \quad n=1} \\ {0} & {\text { if } \quad n>1}\end{array}\right.
+$$
+Indeed, it is trivial for $n=1 .$ And, for $n>1,$ if $n=\prod_{j=1}^{k} p_{j}^{\alpha_{j}}>1\left(p_{j} \text { primes, } p_{j} \neq p_{i} \text { for }\right.$
+$j \neq i),$ then
+$$
+\sum_{d | n} \mu(d)=\left(\begin{array}{l}{k} \\ {0}\end{array}\right)-\left(\begin{array}{l}{k} \\ {1}\end{array}\right)+\cdots+(-1)^{k}\left(\begin{array}{l}{k} \\ {k}\end{array}\right)=(1-1)^{k}=0
+$$
+\begin{proposition}
+For every positive $n,$ the Mertens function verifies
+$$
+1=\sum_{a=1}^{n} M\left(\frac{n}{a}\right)
+$$
+\end{proposition}
+\begin{proof} Actually, we will prove $(5)$ also for real numbers $x \geq 1 .$ From the definition $M(x)=$
+$\sum_{k \leq x} \mu(k),$ we have
+$$
+\sum_{a=1}^{\lfloor x\rfloor} M\left(\frac{x}{a}\right)=\sum_{a=1}^{\lfloor x\rfloor} \sum_{b=1}^{\left\lfloor\frac{x}{a}\right\rfloor} \mu(b)
+$$
+If $a b=k,$ then $a | k$ and, moreover, when the values of $a$ and $b$ vary, $k$ takes the values
+$1,2, \ldots, x\} .$ Then, we have
+$$
+\sum_{a=1}^{\lfloor x\rfloor} \sum_{b=1}^{\left\lfloor\frac{x}{a}\right\rfloor} \mu(b)=\sum_{1 \leq k \leq\lfloor x\rfloor} \sum_{a | k} \mu(a)
+$$
+By applying $(4),$ we get $(5)$
+\end{proof}
+\clearpage
+\iffalse
 The Riemann zeta function is the function of the complex variable $s,$ defined in the half-plane $\Re(s)>1$ by the absolutely convergent series
 $$
 \zeta(s) :=\sum_{n=1}^{\infty} \frac{1}{n^{s}}
@@ -240,6 +283,9 @@ $$
 \frac{1}{\zeta(s)}=\prod_{p}\left(1-\frac{1}{p^{s}}\right)=\sum_{n=1}^{\infty} \frac{\mu(n)}{n^{t}}
 $$
 where $\mu$ the Mobius function is defined by
+$$\mu(n)=\left\{\begin{array}{cl}{1} & {\text { if } n=1} \\ {0} & {\text { if } n \text { is not square-free }} \\ {(-1)^{r}} & {\text { if } n \text{ is a product of } r \text{ distinct primes }}\end{array}\right.$$
+
+
 $$\mu(n)=\left\{\begin{array}{cl}{1} & {\text { if } n=1} \\ {0} & {\text { if } n \text { is not square-free }} \\ {(-1)^{r}} & {\text { if } n \text{ is a product of } r \text{ distinct primes }}\end{array}\right.$$
 \bibliographystyle{plain}
 \bibliography{M335}
