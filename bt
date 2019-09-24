@@ -1,3 +1,37 @@
+import math
+import matplotlib.pyplot as plt
+
+mert=[]
+
+
+mert.append(1)
+mert.append(1)
+
+for x in range(2,100):
+    res=1
+    if x%1000==0:
+        print(x)
+    for j in range(2,x+1):
+        #print(mert)
+        #print(j)
+        #print(x)
+        if math.floor(x/j)<2:
+            res=res-(x-j+1)
+            break
+        #print("ici")
+        #print(x)
+        #print(math.floor(x/j))
+        res=res-mert[math.floor(x/j)]
+    mert.append(res)
+
+
+plt.plot(mert, label='pr')
+#plt.plot(diff, label='dif')
+#plt.plot(diffr, label='difr')
+plt.show()
+
+
+
 \documentclass[12pt]{extarticle}
 \usepackage{graphicx}
 \usepackage{amsmath}
