@@ -1,0 +1,91 @@
+
+\documentclass[oneside,titlepage,a4wide]{article}
+\usepackage{amsmath,graphicx,calc}
+\usepackage{pgfplots}
+\usepackage{tikz}
+\usepackage[nodayofweek]{datetime} 
+\usepackage[official]{eurosym}
+\usepackage{float} 
+\usepackage{array}
+\usepackage{needspace}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{tabu}
+\usepackage{pgfplotstable}
+\usepackage{datatool}
+\usepackage{csvsimple}
+\usepackage{etoolbox}
+\usepackage{multirow}
+\usepackage{datetime}
+\usepackage{numprint}
+\usepackage{longtable}
+\lstset{language=C++}
+\usetikzlibrary{backgrounds}
+\usepgfplotslibrary{dateplot}
+\pgfplotsset{grid style={solid,gray}}
+\usetikzlibrary{patterns}
+\setlength{\parskip}{10pt plus 1pt minus 1pt}
+\setlength{\parindent}{0pt}
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
+\definecolor{mgray}{rgb}{0.7, 0.7, 0.7}
+\definecolor{lightgray}{rgb}{0.83, 0.83, 0.83}
+\definecolor{aqua}{rgb}{0.0, 1.0, 1.0}
+\definecolor{aquamarine}{rgb}{0.5, 1.0, 0.83}
+\definecolor{ao}{rgb}{0.0, 0.0, 1.0}
+\usepackage{array}
+\newcolumntype{C}[1]{>{\centering\arraybackslash$}p{#1}<{$}}
+
+\newdate{olddate}{27}{03}{2002}
+
+\renewcommand{\dateseparator}{-}
+
+\definecolor{asparagus}{rgb}{0.53, 0.66, 0.42}
+\definecolor{atomictangerine}{rgb}{1.0, 0.6, 0.4}
+\definecolor{babyblueeyes}{rgb}{0.63, 0.79, 0.95}
+\definecolor{babypink}{rgb}{0.96, 0.76, 0.76}
+\definecolor{camel}{rgb}{0.76, 0.6, 0.42}
+\definecolor{cinnabar}{rgb}{0.89, 0.26, 0.2}
+\definecolor{classicrose}{rgb}{0.98, 0.8, 0.91}
+\definecolor{coolgrey}{rgb}{0.55, 0.57, 0.67}
+\definecolor{darkgray}{rgb}{0.66, 0.66, 0.66}
+\definecolor{Jonquil}{rgb}{0.98, 0.85, 0.37}
+
+
+\newcommand{\Title}{Trade Verification Summary}
+
+\newcommand{\Project}{Verifications, New Trades and Updates}
+
+\newcommand{\Author}{Amine Abdelkader}
+\newcommand{\ContactPerson}{Contact Person}
+
+\newcommand{\MVDepartment}{Models \& Calibration Equities \& Commodities}
+%
+
+\newcommand{\Date}{\longdate\displaydate{docdate}}
+\newcommand\at[2]{\left.#1\right|_{#2}}
+% Common Commmands
+\newcommand{\thinline}{\rule{16.8cm}{0.1mm} \\*}
+\newcommand{\mcemc}{GRM-MR, Methodology Trading, Models and Calibration EMC }
+
+\usepackage{filecontents}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+
+
+
+\newcommand{\unvertwelve}{}
+
+
+\begin{document}
+
+$$\sum_1^n\frac{(-1)^{k+1}}{k}C^k_n=\sum_1^n\frac{1}{k}$$
+\end{document}
+\unvertwelve
