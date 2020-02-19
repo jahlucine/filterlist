@@ -1,0 +1,1147 @@
+\documentclass{article}
+\usepackage{amsmath,graphicx,calc,bbm}
+\usepackage{amssymb}
+\usepackage{exercise}
+\usepackage{tikz}
+\renewcommand{\ExerciseHeader}{\medskip\textbf{\large\ExerciseHeaderNB~-~\ExerciseTitle~~\ExerciseHeaderDifficulty\ExerciseHeaderOrigin}\medskip\\}
+\renewcommand{\AnswerHeader}{\medskip\textbf{\large\ExerciseHeaderNB~-~\ExerciseTitle~-~Solution}\medskip\\}
+
+\newcommand{\thinline}{\rule{16.8cm}{0.1mm} \\*}
+\newcommand{\mcemc}{GRM-MR, Methodology Trading, Models and Calibration EMC }
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Em}{\mathbb{E}}
+\newcommand{\Pm}{\mathbb{P}}
+\newcommand{\Qm}{\mathbb{Q}}
+\newcommand{\Var}{\mathbb{V}}
+\newcommand{\InfInt}{\int_{-\infty}^{\infty}}
+\newcommand{\fpd}[2]{\frac{\partial {#1}}{\partial {#2}}}     % first partial derivative
+\newcommand{\spd}[2]{\frac{\partial^2 {#1}}{\partial {#2}^2}} % second partial derivatie
+\newcommand{\smpd}[3]{\frac{\partial^2 {#1}}{\partial {#2} \partial{#3} }} % second mxd partial der
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+\DeclareMathOperator{\sgn}{sgn}    %AMS
+\DeclareMathOperator{\diag}{diag}  %AMS
+\DeclareMathOperator{\corr}{Corr}
+
+\newif\ifskip
+\skipfalse
+
+\begin{document}
+\subsection{FP}
+Derive the Fokker Planck equation
+$$
+\frac{\partial \rho}{\partial t}=-\frac{\partial(\rho \mu)}{\partial x}+\frac{1}{2} \frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}}
+$$
+
+\subsection{FP}
+We consider a stochastic process defined by
+$$d X _ { t } = \mu \left( X _ { t } \right) d t + \sigma \left( X _ { t } \right) d W _ { t }$$
+the transition density $\rho ( x , t | y , s ) $ is defined by
+$$\begin{aligned} \int _ { A } \rho ( x , t | y , s ) d x & = \operatorname { Pr } \left[ X _ { t + s } \in A | X _ { s } = y \right] \\ & = \operatorname { Pr } \left[ X _ { t } \in A | X _ { 0 } = y \right] \end{aligned}$$
+Consider a differentiable function $V \left( X _ { t } , t \right) = V ( x , t )$ with $V \left( X _ { t } , t \right) = 0$ for
+$t \notin ( 0 , T ) .$ Then by Ito's Lemma
+$$d V = \left[ \frac { \partial V } { \partial t } + \mu \frac { \partial V } { \partial x } + \frac { 1 } { 2 } \sigma ^ { 2 } \frac { \partial ^ { 2 } V } { \partial x ^ { 2 } } \right] d t + \left[ \sigma \frac { \partial V } { \partial x } \right] d W _ { t }$$
+So that
+$$
+V\left(X_{T}, T\right)-V\left(X_{0}, 0\right)=\int_{0}^{T}\left[\frac{\partial V}{\partial t}+\mu \frac{\partial V}{\partial x}+\frac{1}{2} \sigma^{2} \frac{\partial^{2} V}{\partial x^{2}}\right] d t+\int_{0}^{T}\left[\sigma \frac{\partial V}{\partial x}\right] d W_{t}
+$$
+where $\mu=\mu\left(X_{t}\right)$ and $\sigma=\sigma\left(X_{t}\right)$ for notational convenience. Take the conditional expectation of both sides given $X_{0}$
+$$
+\begin{aligned} & E\left[V\left(X_{T}, T\right)-V\left(X_{0}, 0\right)\right] \\=& E \int_{0}^{T}\left[\frac{\partial V}{\partial t}+\mu \frac{\partial V}{\partial x}+\frac{1}{2} \sigma^{2} \frac{\partial^{2} V}{\partial x^{2}}\right] d t+E \int_{0}^{T}\left[\sigma \frac{\partial V}{\partial x}\right] d W_{t} \\=& \int_{\mathbb{R}}\left\{\int_{0}^{T}\left[\frac{\partial V}{\partial t}+\mu \frac{\partial V}{\partial x}+\frac{1}{2} \sigma^{2} \frac{\partial^{2} V}{\partial x^{2}}\right] d t\right\} \rho(x, t | y, s) d x \end{aligned}
+$$
+In this note, all expectations are expectations conditional on $X_{0},$ so that $E[\cdot]=$
+$E\left[\cdot | X_{0}=y\right] .$ since $E\left[d W_{t}\right]=0,$ the second term in the middle line of equation
+(2) drops out. Hence, we can write equation $(2)$ as three integrals
+$$
+\int_{\mathbb{R}} \int_{0}^{T} \rho \frac{\partial V}{\partial t} d t d x+\int_{\mathbb{R}} \int_{0}^{T} \rho \mu \frac{\partial V}{\partial x} d t d x+\frac{1}{2} \int_{\mathbb{R}} \int_{0}^{T} \rho \sigma^{2} \frac{\partial^{2} V}{\partial x^{2}} d t d x=I_{1}+I_{2}+I_{3}
+$$
+where $\rho=\rho(x, t | y, s)$ for notational convenience. The objective of the derivation
+is to apply integration by parts to get rid of the derivatives of $V .$
+2.1 Evaluation of the Integrals
+The trick is that $I_{1}$ is evaluated using integration by parts on $t,$ while $I_{2}$ and $I_{3}$
+are each evaluated using integration by parts on $x .$
+2.1.1 Evaluation of $I_{1}$
+Use $u=\rho, v^{\prime}=\frac{\partial V}{\partial t}$ so that $u^{\prime}=\frac{\partial \rho}{\partial t}$ and $v=V .$ Hence for the inside integrand
+of $I_{1}$ we have
+$$
+\begin{aligned} \int_{0}^{T} \rho \frac{\partial V}{\partial t} d t &=\left.\rho V\right|_{0} ^{T}-\int_{0}^{T} \frac{\partial \rho}{\partial t} V d t=-\int_{0}^{T} \frac{\partial \rho}{\partial t} V d t \\ \text { since at the boundaries } 0 \text { and } T, V &=0 . \text { Hence } \\ I_{1}=& \int_{\mathbb{R}} \int_{0}^{T} \frac{\partial \rho}{\partial t} V(x, t) d t d x \end{aligned}
+$$
+2.1.2 Evaluation of $I_{2}$
+Change the order of integration in $I_{2}$ and write it as
+$$
+I_{2}=\int_{0}^{T} \int_{\mathbb{R}} \rho \mu \frac{\partial V}{\partial x} d x d t
+$$
+Use integration by parts on the integrand, with $u=\rho \mu, v^{\prime}=\frac{\partial V}{\partial x}$ so that $u^{\prime}=$
+$\frac{\partial(\rho \mu)}{\partial x}, v=V$
+$$
+\int_{\mathbb{R}} \rho \mu \frac{\partial V}{\partial x} d x=\left.\rho \mu V\right|_{\mathbb{R}}-\int_{\mathbb{R}} \frac{\partial(\rho \mu)}{\partial x} V d x
+$$
+Hence the integral can be evaluated as
+$$
+\begin{aligned} I_{2} &=-\int_{0}^{T} \int_{\mathbb{R}} \frac{\partial(\rho \mu)}{\partial x} V(x, t) d x d t \\ &=-\int_{\mathbb{R}} \int_{0}^{T} \frac{\partial(\rho \mu)}{\partial x} V(x, t) d t d x \end{aligned}
+$$
+2.1.3 Evaluation of $I_{3}$
+Finally, the evaluation of the integrand of $I_{3}$ requires the application of inte-
+gration by parts on $x$ twice. This is because in the integrand we want to get
+rid of the $\frac{\partial^{2} V}{\partial x^{2}}$ term and end up with $V(x, t)$ only. Again, change the order of
+integration and write $I_{3}$ as
+$$
+\frac{1}{2} \int_{0}^{T} \int_{\mathbb{R}} \rho \sigma^{2} \frac{\partial^{2} V}{\partial x^{2}} d x d t
+$$
+For the first integration by parts use $u=\rho \sigma^{2}, v^{\prime}=\frac{\partial^{2} V}{\partial x^{2}}$ so that $u^{\prime}=\frac{\partial\left(\rho \sigma^{2}\right)}{\partial x}$ and
+$v=\frac{\partial V}{\partial x}$ . Hence the integrand can be written
+$$
+\begin{aligned} \int_{\mathbb{R}} \rho \sigma^{2} \frac{\partial^{2} V}{\partial x^{2}} d x &=\left.\rho \sigma^{2} \frac{\partial V}{\partial x}\right|_{\mathbb{R}}-\int_{\mathbb{R}} \frac{\partial\left(\rho \sigma^{2}\right)}{\partial x} \frac{\partial V}{\partial x} d x \\ &=-\int_{\mathbb{R}} \frac{\partial\left(\rho \sigma^{2}\right)}{\partial x} \frac{\partial V}{\partial x} d x \end{aligned}
+$$
+Apply integration by parts again, with $u=\frac{\partial\left(\rho \sigma^{2}\right)}{\partial x}, v^{\prime}=\frac{\partial V}{\partial x}, u^{\prime}=\frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}}, v=V$
+$$
+\begin{aligned}-\int_{\mathbb{R}} \frac{\partial\left(\rho \sigma^{2}\right)}{\partial x} \frac{\partial V}{\partial x} d x &=-\left.\frac{\partial\left(\rho \sigma^{2}\right)}{\partial x} V\right|_{\mathbb{R}}+\int_{\mathbb{R}} \frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}} V d x \\ &=\int_{\mathbb{R}} \frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}} V(x, t) d x \end{aligned}
+$$
+This implies that $I_{3}$ can be written as
+$$
+\frac{1}{2} \int_{0}^{T} \int_{\mathbb{R}} \frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}} V d x d t=\frac{1}{2} \int_{\mathbb{R}} \int_{0}^{T} \frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}} V(x, t) d t d x
+$$
+2.1.4 Obtaining the Equation
+Substitute equations $(3),(4),$ and $(5)$ into equation $(2)$
+$$
+\begin{aligned} & E\left[V\left(X_{T}, T\right)\right]-V\left(X_{0}, 0\right) \\=&-\int_{\mathbb{R}} \int_{0}^{T} \frac{\partial p}{\partial t} V(x, t) d t d x-\int_{\mathbb{R}} \int_{0}^{T} \frac{\partial(\rho \mu)}{\partial x} V(x, t) d t d x \\ &+\frac{1}{2} \int_{\mathbb{R}} \int_{0}^{T} \frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}} V(x, t) d t d x \\=& \int_{\mathbb{R}} \int_{0}^{T} V(x, t)\left[-\frac{\partial \rho}{\partial t}-\frac{\partial(\rho \mu)}{\partial x}+\frac{1}{2} \frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}}\right] d t d x \end{aligned}
+$$
+since $V\left(X_{t}, t\right)=0$ for $t \notin(0, T)$ we have $V\left(X_{T}, T\right)=V\left(X_{0}, 0\right)=0$ so that
+$E\left[V\left(X_{T}, T\right)\right]-V\left(X_{0}\right)=0 .$ This implies that the portion of the integrand in
+the brackets is zero
+$$
+-\frac{\partial \rho}{\partial t}-\frac{\partial(\rho \mu)}{\partial x}+\frac{1}{2} \frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}}=0
+$$
+from which the Fokker-Planck equation can be obtained
+$$
+\frac{\partial \rho}{\partial t}=-\frac{\partial(\rho \mu)}{\partial x}+\frac{1}{2} \frac{\partial^{2}\left(\rho \sigma^{2}\right)}{\partial x^{2}}
+$$
+\clearpage
+\subsection{Exchange Option}
+
+Find the price of the exchange option
+$$\text{Ex}(T) = e ^ { - r T }\E \left(   \left( S _ { 1 } ( T ) - S _ { 2 } ( T ) , 0 \right)^+ \right)$$
+
+\subsection{Solution}
+
+The dynamics of the correlated stocks are
+$$\begin{aligned} d S _ { 1 } ( t ) = r S _ { 1 } ( t ) d t + \sigma _ { 1 } S _ { 1 } ( t ) d B _ { 1 } , ~S _ { 1 } ( 0 ) & = s _ { 1 } \\ d S _ { 2 } ( t )  = r S _ { 2 } ( t ) d t + \sigma _ { 2 } S _ { 2 } ( t ) d B _ { 2 } , ~S _ { 2 } ( 0 ) &= s _ { 2 } \end{aligned}$$
+where $B _ { 1 } , B _ { 2 }$ are Brownian motions with $\E \left( d B _ { 1 } d B _ { 2 } \right) = \rho d t .$
+We can rewrite the option price as follows
+$$\text{Ex}(T) = e ^ { - r T }\E \left( S _ { 2 } ( T ) \left( \frac{S _ { 1 } ( T )}{S _ { 2 } ( T )} - 1 , 0 \right)^+ \right)$$
+we denote $Y ( t ) = \frac{S _ { 1 } ( T )}{S _ { 2 } ( T )}$ and we calculate the dynamics of $Y(t)$ using Ito's multidimensional formula
+$$d Y = Y \left( \sigma _ { 2 } ^ { 2 } - \sigma _ { 1 } \sigma _ { 2 } \rho \right) d t + Y \left( \sigma _ { 1 } d B _ { 1 } - \sigma _ { 2 } d B_ { 2 } \right)$$
+and
+$$\text{Ex}(T) = e ^ { - r T }\E \left( s_2e ^ {  r T }\exp \left( \sigma _ { 2 } B _ { 2 } ( T ) - \frac { 1 } { 2 } \sigma _ { 2 } ^ { 2 } T \right) \left( Y(T) - 1 , 0 \right)^+ \right)$$
+$$\text{Ex}(T) = s_2\E \left(\exp \left( \sigma _ { 2 } B _ { 2 } ( T ) - \frac { 1 } { 2 } \sigma _ { 2 } ^ { 2 } T \right) \left( Y(T)- 1 , 0 \right)^+ \right)$$
+we recognize a Girsanov exponential defining a measure change
+$$\frac { d \tilde { P } } { d P } = \exp \left( \sigma _ { 2 } B _ { 2 } ( T ) - \frac { 1 } { 2 } \sigma _ { 2 } ^ { 2 } T \right)$$
+under the measure $\tilde { P }$ the process
+$$d \tilde { B } _ { 2 } = d B _ { 2 } - \sigma _ { 2 } d t$$
+is a Brownian motion and
+$$\text{Ex}(T) = s_2\tilde {\E} \left(\left( Y(T) - 1 , 0 \right)^+ \right)$$
+We need to find the dynamics of $Y(T)$ in $\tilde { P }$. We can decompose $B_1$ as follows
+$$B _ { 1 } ( t ) = \rho B _ { 2 } ( t ) + \sqrt { 1 - \rho ^ { 2 } } B_3 ( t )$$
+where $B_3$ is a Brownian motion independent of $B _ { 2 }$
+$$dB _ { 1 } ( t ) = \rho d\tilde {B } _ { 2 } ( t ) + \sqrt { 1 - \rho ^ { 2 } } dB_3 ( t )+\rho \sigma _ { 2 } d t$$
+Therefore the process
+$$d\tilde {B } _ { 1 } ( t )=dB _ { 1 } ( t )-\rho \sigma _ { 2 } d t $$
+is a Brownian motion under the measure $\tilde { P }$. Replacing in the dynamics of $Y(T)$ we obtain
+$$d Y = Y \left( \sigma _ { 1 } d \tilde { B } _ { 1 } - \sigma _ { 2 } d \tilde { B } _ { 2 } \right)$$
+Therefore
+$$d Y = Y \sigma d B_4$$
+where $B_4$ is a standard Brownian motion and 
+$$\sigma  = \sqrt { \sigma _ { 1 } ^ { 2 } + \sigma _ { 2 } ^ { 2 } - 2 \rho \sigma _ { 1 } \sigma _ { 2 } }$$
+We can conclude that the price of the exchange option is
+$$\text{Ex}(T) = s_2\tilde {\E} \left(\left( Y(T) - 1 , 0 \right)^+ \right)=s_2C$$
+where C is the price of a call option on asset $Y$ with volatility $\sigma ,$ strike 1, spot $\frac{s_1}{s_2}$ and riskless rate $0 .$
+$$ \text{Ex}(T)  = s _ { 1 } N \left( d _ { 1 } \right) - s _ { 2 } N \left( d _ { 2 } \right)$$
+$$\begin{aligned} d _ { 1 } & = \frac { \ln \left(\frac{s_1}{s_2} \right) + \frac { 1 } { 2 } \sigma ^ { 2 } T } { \sigma \sqrt { T } } \\ d _ { 2 } & = d _ { 1 } - \sigma \sqrt { T } \end{aligned}$$
+
+\clearpage
+\subsection{Forward start option}
+Calculate the price of a Forward Start Option with payoff
+$$\text{Fs}_ { T } =e^{-rT}\E_0\left( \left( S _ { T } - S _ { t _ { 0 } } \right) ^ { + }\right)$$
+
+\subsection{Solution}
+We can decompose the price of the option as follows
+$$\text{Fs}_ { T } =e^{-rT}\E_0\left( S _ { t _ { 0 }}\left( \frac{S _ { T }}{S _ { t _ { 0 }}} - 1  \right) ^ { + }\right)$$
+$$\text{Fs}_ { T } =e^{-rT}\E_0\left( S_0\exp\left(rt_0-\frac{\sigma^2t_0}{2}+\sigma B_{t_0}\right)\left(\exp\left(r\tau-\frac{\sigma^2\tau}{2}+\sigma (B_{T}-B_{t_0})\right) - 1  \right) ^ { + }\right)$$
+where $\tau=T-t_0$. $(B_{T}-B_{t_0})$ and $B_{t_0}$ are independent and
+$$\E_0\left( S_0\exp\left(rt_0-\frac{\sigma^2t_0}{2}+\sigma B_{t_0}\right)\right)=S_0e^{-rt_0}$$
+Therefore
+$$\text{Fs}_ { T } =e^{-r(T-t_0)}\E_0\left( \left(S_0\exp\left(r\tau-\frac{\sigma^2\tau}{2}+\sigma (B_{T}-B_{t_0})\right) - S_0  \right) ^ { + }\right)$$
+$(B_{T}-B_{t_0})$ and $B_{\tau}$ have the same law and we identify the price of a call option with maturity $(T-t_0)$, rates $r$, strike $S_0$ and spot $S_0$.
+
+
+\clearpage
+\subsection{part1}
+Calculate the greeks $\Delta$, $\Gamma$, $\mathcal{V}$,  $\rho$, $\Theta$.
+
+\subsection{part2}
+We denote $C$ the price of the call option at $t=0$, $\phi$ the standard normal cumulative distributrion and $f=\phi'$ the standard normal density function.
+$$C=S_0\phi(d_1)-Ke^{-rT}\phi(d_2)$$
+$$d_1=\frac{ln\Big(\frac{S_0}{K}\Big)+rT+\frac{\sigma^2T}{2}}{\sigma\sqrt{T}} ~,~ d_2=\frac{ln\Big(\frac{S_0}{K}\Big)+rT-\frac{\sigma^2T}{2}}{\sigma\sqrt{T}}=d_1-\sigma\sqrt{T}$$
+We start with an identity that will help us for all the greeks
+$$f(d_2)=\frac{1}{\sqrt{2\pi}}\exp\left(\frac{-d_2^2}{2}\right)=\frac{1}{\sqrt{2\pi}}\exp\left(\frac{-d_1^2}{2}\right)\exp\left(d_1\sigma\sqrt{T}\right)\exp\left(\frac{-\sigma^2T}{2}\right)$$
+\begin{equation} \label{greekc}
+f(d_2)=\frac{1}{\sqrt{2\pi}}\exp\left(\frac{-d_1^2}{2}\right)\frac{S_0}{K}\exp(rT)=f(d_1)\frac{S_0}{K}e^{rT}
+\end{equation}
+\subsubsection{$\Delta$}
+$$\Delta=\frac{\partial C}{\partial S_0}=\phi(d_1)+S_0f(d_1)\frac{\partial d_1}{\partial S_0}-Ke^{-rT}f(d_2)\frac{\partial d_2}{\partial S_0}$$
+$$\Delta=\phi(d_1)+f(d_1)\frac{1}{\sigma\sqrt{T}}-Ke^{-rT}f(d_2)\frac{S_0}{\sigma\sqrt{T}}$$
+And using the equation \ref{greekc}
+$$\Delta=\phi(d_1)$$
+\subsubsection{$\Gamma$}
+$$\Gamma=f(d_1)\frac{1}{S_0\sigma\sqrt{T}}$$
+\subsubsection{$\mathcal{V}$}
+$$\mathcal{V}=\frac{\partial C}{\partial \sigma}=S_0f(d_1)\frac{\partial d_1}{\partial \sigma}-Ke^{-rT}f(d_2)\frac{\partial d_2}{\partial \sigma}$$
+$$\mathcal{V}=\frac{\partial C}{\partial \sigma}=S_0f(d_1)\frac{\partial d_1}{\partial \sigma}-Ke^{-rT}f(d_2)\left(\frac{\partial d_1}{\partial \sigma}-\sqrt{T}\right)$$
+And using equation \ref{greekc}
+$$\mathcal{V}=Ke^{-rT}f(d_2)\sqrt{T}=S_0f(d_1)\sqrt{T}$$
+\subsubsection{$\rho$}
+$$\rho=\frac{\partial C}{\partial r}=S_0f(d_1)\frac{\partial d_1}{\partial r}+TKe^{-rT}\phi(d_2)-Ke^{-rT}f(d_2)\frac{\partial d_2}{\partial r}$$
+$$\rho=S_0f(d_1)\frac{\sqrt{T}}{\sigma}+TKe^{-rT}\phi(d_2)-Ke^{-rT}f(d_2)\frac{\sqrt{T}}{\sigma}$$
+And using equation \ref{greekc}
+$$\rho=TKe^{-rT}\phi(d_2)$$
+\subsubsection{$\Theta$}
+$$\Theta=\frac{\partial C}{\partial T}=S_0f(d_1)\frac{\partial d_1}{\partial T}+rKe^{-rT}\phi(d_2)-Ke^{-rT}f(d_2)\frac{\partial d_2}{\partial T}$$
+$$\Theta=S_0f(d_1)\frac{\partial d_1}{\partial T}+rKe^{-rT}\phi(d_2)-Ke^{-rT}f(d_2)\left(\frac{\partial d_1}{\partial T}-\frac{\sigma}{2\sqrt{T}}\right)$$
+And using equation \ref{greekc}
+$$\Theta=rKe^{-rT}\phi(d_2)+Ke^{-rT}f(d_2)\frac{\sigma}{2\sqrt{T}}$$
+\clearpage
+
+\subsection{part1}
+$X$ r.v. with density $f_x$ and cumulative $F_x$
+$$Y=F_x(X)$$
+$$c\in[0,1];~Pr(Y<c)=Pr(F_x(X)<c)=c$$
+$$F_y(c)=c;~f_y(c)=1;~Y\sim U(0,1)$$
+We consider a stock process coupled with stochastic interest rates (Vasicek model)
+$$\mathrm { d } r _ { t } = \left( \theta _ { t } - \kappa r _ { t } \right) \mathrm { d } t + \sigma _ { t } ^ { r } \mathrm { d } B _ { t } ^ { r }$$
+$$\frac { \mathrm { d } S _ { t } } { S _ { t } } =  r _ { t } \mathrm { d } t + \sigma _ { t } ^ { S } \mathrm { d } B _ { t } ^ { S }$$
+Integrating the rates equation using the process $Y_t=r_t\exp(\kappa t)$ (see \ref{}) we have
+$$r _ { T } =[\text{deterministic terms}] +  \int _ { t } ^ { T } \exp ( \kappa ( u - T ) ) \sigma _ { u } ^ { r } \mathrm { d } B _ { u }$$
+We can focus on the stochastic terms as we want to calculate the variance of the combined process. Using Ito formula with $Z_t=\ln(S_t)$ we find the stock process
+$$S_T=S_t\exp \left( \int _ { t } ^ { T } r _ { s } \mathrm { d } s -\int _ { t } ^ { T } \frac{(\sigma_s^S)^2}{2} \mathrm { d } s+\int _ { t } ^ { T } \sigma _ { s } ^ { S } \mathrm { d } B _ { s } ^ { S } \right)$$
+we calculate the $r_t$ term
+$$A(t,T)=  \exp \left(  \int _ { t } ^ { T } r _ { s } \mathrm { d } s \right)$$
+$$A(t,T) =  \exp \left([\text{drift terms}] + \int _ { s=t } ^ { s=T} \int _ { u=t } ^ { u=s } \exp ( \kappa ( u - s ) ) \sigma _ { u } ^ { r } \mathrm { d } B _ { u } ^ { r } \mathrm { d } s \right)$$
+$$A(t,T) =   \exp \left( [\text{drift terms}] + \int _ { u=t } ^ { u=T} \int _ { s=u } ^ { s=T }  \exp ( \kappa ( u - s ) ) \sigma _ { u } ^ { r } \mathrm { d } s \mathrm { d } B _ { u } ^ { r }  \right)$$
+$$A(t,T)=  \exp \left(  [\text{drift terms}]+ \int _ { u=t } ^ { u=T} \frac { 1 - \exp ( \kappa ( u - T ) ) } { \kappa } \sigma _ { u } ^ { r }\mathrm { d } B _ { u } ^ { r }  \right)$$
+Note that $A(t,T)$ is the inverse of the zero-coupon bond. We have now all the stochastic terms of $S_t$
+$$S_T=S_t\exp \left( [\text{drift terms}]+\int _ { t } ^ { T } \sigma _ { s } ^ { S } \mathrm { d } B _ { s } ^ { S } + \int _ { t } ^ { T} \frac { 1 - \exp ( \kappa ( u - T ) ) } { \kappa } \sigma _ { u } ^ { r }\mathrm { d } B _ { u } ^ { r } \right)$$
+we set $t=0$, the variance of $S_T$ is
+$$V _ { T } = \int _ { 0 } ^ { T } \left( \left( \sigma _ { t } ^ { S } \right) ^ { 2 } + 2 \rho \sigma _ { t } ^ { S } \alpha(t,T) \sigma _ { t } ^ { r } + \alpha(t,T) ^ { 2 } \left( \sigma _ { t } ^ { r } \right) ^ { 2 } \right) \mathrm { d } t$$
+where
+$$\alpha(t,T)=\frac { 1 - \exp ( \kappa ( u - T ) ) } { \kappa }$$
+and this formula can be used to calibrate the model
+$$\sigma _ { \mathrm { imp } , T } ^ { 2 } =\frac{V _ { T } }{T}$$
+
+\clearpage
+see all faces dice\\
+fix dt i.e.\\
+integrale kent\\
+x + Y gaussian\\
+w1>0w2>0\\
+disttribution cumulative
+sign(Bs)
+
+\ifskip
+Generalized dice
+
+We denote $P(i|j)$ the probability of the player $j$ winning a game started by the player $i$. The probability of no one winning is equal to zero (copy paste). Therefore
+$$P(A|A)+P(B|A)+P(C|A)=1$$
+We can visualize the possible outcomes after A turn
+$$\text{A tosses the coin}\begin{cases}
+  \text{A gets heads with a probability}~\frac{1}{4};~ \text{B wins with a probability}~ P(B|B)\\    
+  \text{A gets tails with a probability}~\frac{1}{4};~ \text{B wins with a probability}~ P(B|C)\\    
+  \text{A gets side with a probability}~\frac{1}{2};~ \text{A wins}
+\end{cases}$$
+and
+$$P(B|A)=\frac{1}{4}P(B|B)+\frac{1}{4}P(B|C)$$
+and by symmetry $P(B|B)=P(A|A)$ and $P(B|C)=P(C|A)$ giving
+$$P(B|A)=\frac{1}{4}P(A|A)+\frac{1}{4}P(C|A)$$
+By symmetry we also have
+$$P(B|A)=P(C|A)$$
+and the system
+$$P(A|A)+2P(B|A)=1$$
+$$\frac{3}{4}P(B|A)=\frac{1}{4}P(A|A)$$
+We find $P(A|A)=\frac{3}{5}$ and $P(B|A)=P(C|A)=\frac{1}{5}$.
+
+
+Calculate $\E\left(\exp(X)\right)$ when is $X$ is a normally distributed random variable
+
+
+$$X \sim \mathcal{N}\left(\mu, \sigma^{2}\right)$$
+
+
+$$\E\left(\exp(X)\right)=\InfInt \exp(x) \frac{1}{\sqrt{2 \pi} \sigma} \exp \left(-\frac{(x-\mu)^{2}}{2 \sigma^{2}}\right)dx$$
+
+$$\E\left(\exp(X)\right)= \frac{1}{\sqrt{2 \pi} \sigma}\InfInt \exp \left(\frac{\sigma^{2}x-x^2+2\mu x-\mu^2}{2 \sigma^{2}}\right)dx$$
+
+$$\E\left(\exp(X)\right)= \frac{1}{\sqrt{2 \pi} \sigma}\InfInt \exp \left(\frac{-(x-\left(\sigma^2+\mu)\right)^2}{2 \sigma^{2}}+\frac{\sigma^4+2\mu\sigma^2}{2 \sigma^{2}}\right)dx$$
+
+$$\E\left(\exp(X)\right)= \exp\left(\frac{\sigma^2}{2}+\mu\right)\InfInt  \frac{1}{\sqrt{2 \pi} \sigma}\exp \left(\frac{-(x-\left(\sigma^2+\mu)\right)^2}{2 \sigma^{2}}\right)dx$$
+We identify the integral of the density of a normal distribution equal to $1$ and
+$$\E\left(\exp(X)\right)= \exp\left(\frac{\sigma^2}{2}+\mu\right)$$
+
+
+
+\subsection{Om-sol} In this classic type of question an unexpected equilibrium appears in a system. The best way to understand it is to start with a small number of tigers.
+\begin{itemize}
+\item 1 tiger: the tiger clearly eats the antelope, he does not need to worry about sleeping after the meal.
+\item 2 tigers: if a tiger eats the antelope he gets eaten by the other tiger. Tigers know that and decide to stay still. The system with 2 tigers is a stable system.
+\item 3 tigers: tigers have read this book and know that the 2 tigers system is stable, one of them eats the antelope, falls asleep and  becomes the pray in a stable 2 tiger system.
+\item 4 tigers: tigers know that the 3 tigers system is unstable and prefer not to eat the antelope, the 3 tigers system is stable.
+\end{itemize}
+It appears that systems with an even number of tigers are stable. The antelope is relaxed because she has counted the tigers and found an even number.
+
+\subsection{Om-sol} This is a different version of a classic type of equilibrium puzzles. We start with the cases with a low number of red eyed monks (RE group).
+\begin{itemize}
+\item Zero RE monk and the tourist lied to them: on the first day all the monks think that they are RE because they cannot see anyone else in RE. At midnight they all commit suicide. This bad prank should not happen because the tourist is assumed to tell the truth.
+\item 1 RE monk: he cannot see anyone else in RE and commits suicide at midnight.
+\item 2 RE monks: RE monks think on the first day that there is only one RE monk and they can see it. But no one commits suicide on the first night. At that point they realize that they are in a system with 2 RE and they both commit suicide on the second night.
+\item 3 RE monks: RE monks think that they are in a system with 2 RE, but no one commits suicide on the second night, they realize that it is a 3 RE system and they all commit suicide on the third night.
+\end{itemize}
+The pattern is clear, in conclusion in a system with $j$ monks they all commit suicide on the $j^{th}$ night.
+
+
+\subsection{Om-sol} There is an elegant way to solve this problem based on the symmetry by rotation of the players situation. We define $p_A$ (resp. $p_B$, $p_C$) the probability that player A (resp. B, C) wins the game and $p$ as follows
+$$p=P\left\{\text{Player who starts wins the game}\right\}$$
+we see clearly that $p_A=p$. By symmetry, f player A misses his first toss player B finds himself in the position of starting the same game. Therefore
+$$p_B=P\left\{\text{A misses the first toss}\cap\text{Player who starts wins the game}\right\}=\frac{p}{2}$$
+$$p_C=\frac{p}{4}$$
+Also the probability that no one wins is zero
+$$P\left\{\text{No one wins}\right\}=\lim_{\infty}\frac{1}{2}^n=0$$
+and
+$$p_A+p_B+p_C=p+\frac{p}{2}+\frac{p}{4}=1$$
+$$p=\frac{4}{7}=p_A;~p_B=\frac{2}{7};~p_C=\frac{1}{7}$$
+The question can also be solved with series. We find that
+$$p_A=\frac{1}{2}+\frac{1}{2}.\frac{1}{2}^3+\dots+\frac{1}{2}.\frac{1}{2}^{3i}$$
+$$p_A=\frac{1}{2}\sum_{i=0}^{\infty}\frac{1}{8}^{i}=\frac{1}{2}\frac{1}{1-\frac{1}{8}}=\frac{4}{7}$$
+
+\subsection{Om-sol} A tempting strategy for player A is to pick the lowest number 1 and to be guaranteed to lose at most 1. The expected loss of the winning strategy will have to be lower than $1$. The key in this type of question is to observe that both players have access to the same amount of information. Therefore player B will guess the optimal strategy of A and take full advantage of it.
+We denote $p$ the discrete proability distribution that B decides to use for his choice. When player B picks a number he has an expected gain equal to $g_i=p(i).i$. Remember that player B will guess the proabillity distribution $p$, he will try to maximize his gain and player A will minimize the quantity 
+$$M=\max_{i\in[1,100]} g_i$$
+This maximum is minimized when all the elements are equal $p(i).i=\lambda$. We find $\lambda$ using the probability distribution properties
+$$\sum_1^{100} p(i)=\sum_1^{100} \frac{\lambda}{i}=1$$
+$$\lambda=\frac{1}{\sum_1^{100} \frac{1}{i}}\approx \frac{1}{1+\ln(n)}$$
+therefore player A will pick the number $i$ with a probabililty $p(i)=\frac{\lambda}{i}$. The expected loss (gain) for A (B) is $G=p(i).i=\lambda$. The numerical application with $100$ numbers gives $G\approx 0.18$.
+
+\subsection{Om-sol} This is a recurrent type of question based on the continuity of a function or its derivative. We denote $x(t)$ the position of the car at time $t$. $x(0)=0$, $x(1)=100$ and the mean value theorem proves that
+$$\exists c\in[0,1]: ~x'(c)=\frac{x(1)-x(0)}{1}=100$$
+Alternatively we can use the intermediate value theorem, if the average speed is $100$ the speed cannot always be higher than $100$, and it cannot always be lower than $100$. There exists therefore a moment $t_h$ where the speed is greater or equal to $100$ and a moment $t_l$ where the speed is lower or equal $100$. Therefore $x'(t_h)\ge 100$ and $x'(t_l)\le100$ and $\exists c: x'(c)=100$.
+
+\subsection{Om-sol}The table is round and the winning strategy in this game is based on the central symmetry of the table. The first player A places his coin at the exact center of the table. Every time B places a coin A can respond by placing his coin in the symmetric position. With this strategy B is forced to discover new areas and A is guaranteed to place a coin. Therefore B will eventually run out of space and A is certain to win.
+
+
+\subsection{Om-sol} The objective is to mininize the number of attempts in the worst case. If we had only one egg to solve the problem we would have needed to start at the first floor and to go up one floor for every new attempt. In the worst case we would have needed $100$ attempts. If we have $2$ eggs we can improve this strategy and skip floors when using the first egg. If the first egg breaks we can single out an interval of floors. We can then use the second egg to test the floors in the interval  one by one from the bottom. The crucial question is the choice of intervals to skip with the first egg. We denote $u_i$ the sequence of floors from which the first egg is thrown and $W(k)$ the number of attempts needed in the worst case to solve the problem with 2 eggs and $k$ floors. After the first attempt at $u_1$, if the egg breaks we need try all the floors between $1$ and $u_i-1$. Otherwise we still have $2$ eggs and $(100-u_i)$ remaining floors to test
+$$W(100)=\max\left(u_1,1+W(100-u_1)\right)$$
+we repeat the same reasoning until the $i^{th}$ floor
+$$W(100)=\max\left(u_1,u_2-u_1+1,u_3-u_2+2,\dots,1+W(100-u_i)\right)$$
+we denote $v_i$ the increments sequence $v_i=u_i-u_{i-1}$, and $v_1=u_1$. The equation becomes
+$$W(100)=\max\left(v_1,v2+1,v_3+3,\dots,1+W\left(100-\sum_{k=1}^i v_k\right)\right)$$
+and the full formula for the number of attempts is
+$$W(100)=\max\left(v_1,v2+1,v_3+2,\dots,v_n+n-1\right)$$
+we minimize this maximum when all the arguments are equal. On the other hand the increments sum to 100
+$$\sum_{k=1}^n v_k=100$$
+We denote $M=v_i+i-1$, and for a given $n$ the condition on $M$ is
+$$\sum_{k=1}^n \left( M-k+1\right)=nM+n-\sum_{k=1}^n k>100$$
+$$M>\frac{100}{n}-1+\frac{n+1}{2}$$
+we calculate the derivative of the right side to find that the minimum is reached for $n=\sqrt{200}\approx14.14$ and therefore $M=15$. In the worst case we will need $15$ attempts and the sequence of floors to test with the first egg is
+$$15,29,42,54,65,75,84,92,99,100$$
+\clearpage
+
+
+\subsection{primes}
+We consider a prime number $p\ge5$. Prove that $24$ divides $(p^2-1)$ i.e. $24|(p^2-1)$.
+
+\subsection{primes Solution}
+In order to prove that $24|(p^2-1)$ we could prove that $8|(p^2-1)$ and $3|(p^2-1)$.
+
+We note first that $p^2-1=(p-1)(p+1)$, and $p$ being a prime number, $(p-1)$ and $(p+1)$ are two consecutive even integers. Therefore both can be divided by $2$ and one of them can be divided by $4$. We have proved that $8|(p^2-1)$.
+
+We also observe that $p-1,p,p+1$ are 3 consecutive integers. One of them is necessarily divisible by $3$ and it can not be $p$ because it is a prime number. This shows that $3|(p^2-1)$ and therefore $24|(p^2-1)$.
+
+
+
+\clearpage
+
+\subsection{Binary}
+A trader suggests the following binary hedging strategy for a call option:
+\begin{itemize}
+\item sell a call option at strike $K>S_0$
+\item buy the stock at $K$ when $S_t$ is increasing and crosses $K$
+\item sell the stock at $K$ when $S_t$ is decreasing and crosses $K$
+\end{itemize}
+What is wrong with this strategy?
+
+
+\subsection{Binary - S}This paradox is more than a simple puzzle. The question is called the stop-go paradox and was discussed in several publications (Seidenverg (1988) Carr (1989) Ingersoll (1987) El Karoui (1978)). Generally many interview candidates invoke transaction costs, liquidity or the impossibility to hit an exact price. But all these answers are incorrect because Black Scholes assumptions allow you to build this portfolio. The second type of answer is usually about the portfolio not being self financing because the trader would need to start with $K$ in cash. This is correct but could be addressed using forward contracts for example. We could also borrow the needed cash and the paradox would still be unsolved if the rates are zero.
+
+The correct short answer is that this portfolio is not continuously derivable at $K$, this discontinuity can be crossed an infinity of times by the stochastic process, making it not self-financed.
+
+Let us break the paradox mathematically. We construct the portfolio
+$$V(t)=-\mathbbm{1}_{\{S_t>KP(t)\}} KP(t)+\mathbbm{1}_{\{S_t>KP(t)\}} S_t$$
+where P(t) is the bond's price. This portfolio replicates the terminal payoff and it must satisfy the following equation for all $t$ in order to be self-financed
+$$V(t)=V(0)+\int_{0}^{t} m(u) d P(u)+\int_{0}^{t} n(u) d S_u$$
+For simplicity we take rates constant equal to zero (the general case can be reduced with a change of numeraire). The portfolio is then
+$$V(t)=-\mathbbm{1}_{\{S_t>K\}} K+\mathbbm{1}_{\{S_t>K\}} S_t$$
+and the self-financing condition becomes
+$$V(t)=V(0)+\int_{0}^{t} n(u) d S_u$$
+where
+$$n(u)=\mathbbm{1}_{\{S_u>K\}}$$
+the portfolio is self-financed only if the following equation holds
+$$\begin{aligned}V(t)-V(0)&\stackrel{?}{=}\int_{0}^{t} \mathbbm{1}_{\{S_u>K\}} d S_u\\
+g(S_t)=\mathbbm{1}_{\{S_t>K\}}(S_t-K)-(S_0-K)^+&\stackrel{?}{=}\int_{0}^{t} \mathbbm{1}_{\{S_u>K\}} d S_u\end{aligned}$$
+The key here is that $g$ is not $C^2$ and we cannot apply the usual It\^{o}'s lemma, but we can use the Tanaka formula because $g$ is $C^2$ outside a finite set of points.
+$$g(S_t)=g(S_0)+\int_{0}^{t} g'(S_u) d S_u+\lim_{\epsilon\to0}\frac{1}{2\epsilon}\left|\left\{u\in[0,t];S_u\in[K-\epsilon,K+\epsilon]\right\}\right|$$
+where $g'$ is the weak derivative of $g$ and $|A|$ is the Lebesgue measure of $A$. Therefore
+$$V(t)-V(0)=\int_{0}^{t} \mathbbm{1}_{\{S_u>K\}} d S_u+\lim_{\epsilon\to0}\frac{1}{2\epsilon}\left|\left\{u\in[0,t];S_u\in[K-\epsilon,K+\epsilon]\right\}\right|$$
+The last term does not converge towards zero and the portfolio is not self-financed, breaking the apparent paradox.
+
+In real business conditions this hedging method is not used because of liquidity and the additional risk associated with this book management method. The delta hedging method is preferred, the trader accepts to pay small regular hedging costs in exchange for a much lower risk.
+\clearpage
+
+
+\clearpage
+\subsection{Table Seating}
+$n$ guests are queuing at the entrance to get seated at a wedding table. Every guest has an assigned seat number but the first guest to choose his seat is too drunk and takes a random seat. The remaining guests choose their seat according to the following rule:
+\begin{itemize}
+\item if their assigned seat is available they take it
+\item if their assigned seat is taken they choose randomly an available seat
+\end{itemize}
+What is the probability that the last person gets his assigned seat?
+
+\subsection{Table Seating -sol} Let us say the drunk person's seat is the number $1$ and the last person's assigned seat is $n$. If at any moment a displaced person randomly chooses the seat number $n$ then the last person cannot get his assigned seat. But the critical remark is that if at any time a displaced person randomly chooses the seat number $1$ then the last person get his assigned seat. The chain of displaced guests is a cyclical permutation of the chain of assigned seats and chossing the seat $1$ closes the cycle.\\
+\begin{table}[h!]
+  \begin{center}
+    \label{tab:table1}
+    \begin{tabular}{|c|c|c|c|c|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+      \hline
+      Guest & k & 1 & i & j\\ \hline
+     Seat & 1 & i & j & k\\ \hline
+    \end{tabular}
+  \end{center}
+\end{table}
+\\
+Therefore as long as the seats $1$ and $n$ are available the choice when $k$ seats are available is as follows
+\[
+\begin{cases}
+   p=\frac{1}{k} \text{~to pick 1, the last person is not displaced} \\
+   p=\frac{1}{k} \text{~to pick n, the last person is displaced} \\
+   p=\frac{k-2}{k} \text{~to pick another seat, the choice between 1 and n is postponed} \\
+\end{cases}
+\]
+we can ignore how often the choice between $1$ and $n$ is potponed, when it finally happens the probabilities to choose $1$ or $n$ are equal. The probability that the last person gets his assigned seat is $\frac{1}{2}$.
+
+\clearpage
+
+\subsection{next sol}
+The question is about the longest monotonous subsequence that can be extracted from a given sequence. Intuitively this length increases with the length of the original sequence. We denote $I_i$ (resp. $D_i$) the longest increasing (resp. decreasing) subsequence which last element is $e_i$. The application $i\mapsto \{I_i, D_i\}$ is injective
+\[
+    m<n \Rightarrow
+\begin{cases}
+    e_m<e_n; I_n>I_m\\
+    \text{or} \\
+    e_m>e_n; D_n>D_m\\
+\end{cases}
+\]
+Therefore once $n>p^2$ at best we can fill the square $[1,p]\text{x}[1,p]$ and be guaranteed to find a monotonous subsequence of length $p+1$. Actually for any $n$ we can find a monotonous subsequence of length $\lceil \sqrt{n}\rceil$. In our case $n=300$ and we can extract $18$ ordered elements.
+
+So why is Ramsey in the title? It turns out that an interesting connection can be made between this result and the Ramsey theorem in graph theory. We construct a graph in which each element of the sequence is a node. If two elements of the sequence are in the same order as their indices we connect them with an edge
+$$i<j;~ e_i \text{~and~} e_j \text{~are connected if~} e_i<e_j$$
+In this graph a monotonous subsequence is either a complete subgraph (all the nodes are adjacent) or a stable (no nodes are adjacent). Ramsey theorem states that for every $k$ there exists a Ramsey number $R_k$ such that any graph with $R_k$ nodes or more contains either a complete graph or a stable with $k$ nodes. The Ramsey numbers are only known precisely until $k=4$. Using Ramsey theorem we could prove that there exists a certain sequence length limit for which we could extract an $18$ elements ordered subsequence, unfortunately very little is known about $R_18$. Note that both the Ramsey theorem and the pavement method give only upper bounds for the required number to extract an ordered subsequence.
+
+
+
+
+\begin{table}[h!]
+  \begin{center}
+    \label{tab:table1}
+    \begin{tabular}{|c|c|c|} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+\hline
+      \textbf{Length of the } & \textbf{Ramsey Number } & \\
+     \textbf{ Monotonous Subsequence} & \textbf{$R_k$} &  \textbf{$k^2$}\\
+      \hline
+      1 & 1 & 1\\
+      2 & 2 & 4\\
+      3 & 6 & 9\\
+      4 & 18 & 16\\
+      5 & [43,48] & 25\\
+      6 & [102,165] & 36\\
+      7 & [205,540] & 49\\
+      8 & [282,1870] & 64\\ \hline
+    \end{tabular}
+  \end{center}
+\end{table}
+
+
+
+\fi
+\clearpage
+\ifskip
+
+
+
+
+\clearpage
+
+
+\subsection{baguettes uniform}
+$$I=\displaystyle\int_{x=0}^{x=1}\int_{y=x}^{y=1}\int_{z=y}^{1\wedge(x+y)}dxdydz$$
+
+$$I=\displaystyle\int_{x=0}^{x=1}\int_{y=x}^{y=1}\Big[x \wedge (1-y) \Big]dxdy$$
+
+$$Y=(1-y)$$
+$$I=\displaystyle\int_{x=0}^{x=1}\int_{Y=0}^{Y=1-x}\Big[x \wedge Y \Big]dxdY$$
+
+$$I=\displaystyle\int_{x=0}^{x=\frac{1}{2}}\int_{Y=0}^{Y=x}YdxdY+\int_{x=0}^{x=\frac{1}{2}}\int_{Y=x}^{Y=1-x}xdxdY+\int_{x=\frac{1}{2}}^{x=1}\int_{Y=0}^{Y=1-x}YdxdY$$
+
+$$I_1=\displaystyle\int_{x=0}^{x=\frac{1}{2}}\int_{Y=0}^{Y=x}YdxdY=\int_{x=0}^{x=\frac{1}{2}}\frac{x^2}{2}dx$$
+
+$$I_2=\displaystyle\int_{x=0}^{x=\frac{1}{2}}\int_{Y=x}^{Y=1-x}xdxdY=\int_{x=0}^{x=\frac{1}{2}}x(1-2x)dx$$
+
+$$I_3=\displaystyle\int_{x=\frac{1}{2}}^{x=1}\int_{Y=0}^{Y=1-x}YdxdY=\int_{x=\frac{1}{2}}^{x=1}\frac{(1-x)^2}{2}dx=\int_{s=\frac{1}{2}}^{s=0}-\frac{s^2}{2}ds=\int_{x=0}^{x=\frac{1}{2}}\frac{s^2}{2}dx$$
+
+$$I=\int_{x=0}^{x=\frac{1}{2}}\frac{x^2}{2}+\frac{x^2}{2}+x(1-2x)dx=\int_{x=0}^{x=\frac{1}{2}}x(1-x)dx=\left[\frac{x^2}{2}-\frac{x^3}{3}\right]_0^{\frac{1}{2}}=\frac{1}{12}$$
+$$P=6I=\frac{1}{2}$$
+
+\fi
+
+
+
+
+\ifskip
+
+
+
+
+
+
+
+
+
+
+\clearpage
+
+
+
+
+
+\subsection{Girsanov}
+
+$$Z_t=exp\Bigg(\displaystyle\int_0^ta(s)dWs-\displaystyle\int_0^t\frac{a^2(s)}{2}ds\Bigg)$$
+$$Q(A)=\displaystyle\int_{A}Z_tdP$$
+$$\hat{W}_t=W_t-\displaystyle\int_0^ta(s)ds$$
+\subsection{Call}
+
+$$C=e^{-rT}\mathbb{E}\big(S_T-K\big)^+=e^{-rT}\mathbb{E}\Big(S_T\mathbbm{1}_{(S_T\ge K)}-K\mathbbm{1}_{(S_T\ge K)}\Big)$$
+
+$$S_t=S_0exp\Big(rt-\frac{\sigma^2t}{2}+\sigma W_t\Big)$$
+
+
+
+$$B=e^{-rT}K\mathbb{E}\big(\mathbbm{1}_{(S_T\ge K)}\big)=e^{-rT}KP(S_T\ge K)$$
+$$B=e^{-rT}KP\Bigg(ln\Big(\frac{S_0}{K}\Big)+rT-\frac{\sigma^2T}{2}+\sigma W_T\ge0\Bigg)$$
+$$B=e^{-rT}KP\Bigg(W_T\ge\frac{ln\Big(\frac{K}{S_0}\Big)-rT+\frac{\sigma^2T}{2}}{\sigma}\Bigg)=e^{-rT}KP\Bigg(W_T\le\frac{ln\Big(\frac{S_0}{K}\Big)+rT-\frac{\sigma^2T}{2}}{\sigma}\Bigg)$$
+$$B=e^{-rT}KP\Bigg(X\le\frac{ln\Big(\frac{S_0}{K}\Big)+rT-\frac{\sigma^2T}{2}}{\sigma\sqrt{T}}\Bigg)=Ke^{-rT}\phi(d_2)$$
+
+$$A=e^{-rT}\mathbb{E}\big(S_T\mathbbm{1}_{(S_T\ge K)}\big)=S_0\mathbb{E}\bigg(exp\Big(-\frac{\sigma^2t}{2}+\sigma W_t\Big)\mathbbm{1}_{(S_T\ge K)}\Bigg)$$
+$$A=S_0Q\big(S_T\ge K \big)$$
+$$S_t=S_0exp\Big(rt+\frac{\sigma^2t}{2}+\sigma \hat{W}_t\Big)$$
+$$A=S_0Q\Bigg(X\le\frac{ln\Big(\frac{S_0}{K}\Big)+rT+\frac{\sigma^2T}{2}}{\sigma\sqrt{T}}\Bigg)=S_0\phi(d_1)$$
+$$X \sim \mathcal{N}(0,1)$$
+$$C=S_0\phi(d_1)-Ke^{-rT}\phi(d_2)$$
+$$d_1=\frac{ln\Big(\frac{S_0}{K}\Big)+rT+\frac{\sigma^2T}{2}}{\sigma\sqrt{T}} ~,~ d_2=\frac{ln\Big(\frac{S_0}{K}\Big)+rT-\frac{\sigma^2T}{2}}{\sigma\sqrt{T}}$$
+
+
+
+\clearpage
+
+
+
+\subsection{local vol}
+
+\begin{equation} \label{eq:LocalVolDynamics}
+\frac{dS_t}{S_t} = (r(t)-q(t))dt + \sigma(t,S_t)dW_t
+\end{equation}
+
+\begin{equation} \label{eq:BreedenLitzenberger2}
+p(s,K,t,T) = \frac{1}{D(t,T)} \spd{}{K}C_t(s,K,T)
+\end{equation}
+
+We assume that stock prices follow the process
+
+\begin{equation} \label{eq:LocalVolDynamicsStrippedSpace}
+\frac{dX_t}{X_t} = \left( r(t)-q(t) \right) dt + \sigma(t,X_t)dW_t
+\end{equation}
+
+\begin{equation} \label{eq:KolmogorovForward2}
+    \tfrac{1}{2}\spd{}{x}\Big[ \sigma(t,x)^2 x^2 p(x_0,x,t_0,t)\Big] - (r(t)-q(t))\fpd{}{x}\Big[ x p(x_0,x,t_0,t)\Big] -\fpd{}{t}p(x_0,x,t_0,t) = 0
+\end{equation}
+We multiply this by $D(t_0,t)(x-K)^+$ and integrate from $x=K$ to $x=\infty$ to get
+
+\begin{eqnarray}
+  && \tfrac{1}{2}D(t_0,t)\int_K^\infty \spd{}{x}\Big[ \sigma(t,x)^2 x^2 p(x_0,x,t_0,t)\Big](x-K)dx \nonumber \\
+  && - (r(t)-q(t))D(t_0,t) \int_K^\infty \fpd{}{x}\Big[ x p(x_0,x,t_0,t)\Big](x-K)dx \label{eq:IntegratedFwdEquation}\\
+  && - D(t_0,t)\int_K^\infty \fpd{}{t}p(x_0,x,t_0,t)(x-K) = 0 \nonumber
+\end{eqnarray}
+
+The first term in equation (\ref{eq:IntegratedFwdEquation}) can be integrated by parts and using the Breeden-Litzenberger formula it can be rewritten as
+
+\begin{equation} \label{eq:DupireFirstTerm}
+\tfrac{1}{2}\sigma(t,K)^2 K^2 \spd{}{K} C_{t_0}(x_0,K,t)
+\end{equation}
+
+
+The second term in equation (\ref{eq:IntegratedFwdEquation}) can be integrated by parts and using the integral version of the Breeden-Litzenberger formula it becomes
+
+\begin{equation} \label{eq:DupireSecondTerm}
+(r(t)-q(t))\left( C_{t_0}(x_0,K,t) - K \fpd{}{K} C_{t_0}(x_0,K,t) \right)
+\end{equation}
+
+The last term in equation (\ref{eq:IntegratedFwdEquation}) can be integrated directly and using $D_t(t_0,t)=-r(t)D(t_0,t)$ we obtain
+
+\begin{equation} \label{eq:DupireThirdTerm}
+-\left( r(t) C(x,K,t) + \fpd{}{t}C_{t_0}(x_0,K,t) \right)
+\end{equation}
+
+After subtituting the three terms and rearranging equation (\ref{eq:IntegratedFwdEquation}) we obtain the \textit{Dupire Formula}
+
+\begin{equation} \label{eq:DupireFormula}
+\sigma(t,K)^2 = \frac{ (r(t)-q(t)) K \fpd{}{K} C_{t_0}(x_0,K,t) +\fpd{}{t}C_{t_0}(x_0,K,t) + q(t) C_{t_0}(x_0,K,t) }{\tfrac{1}{2}K^2 \spd{}{K} C_{t_0}(x_0,K,t)  }
+\end{equation}
+
+Usually we find it written in this compact form
+\[
+\sigma_{\text{loc}}(t,K)^2 = \frac{ \fpd{C}{t} + (r(t)-q(t)) K \fpd{C}{K} + q(t) C}{\tfrac{1}{2}K^2 \spd{C}{K} }
+\]
+
+
+\subsection{vasicek hybrid volatility}
+
+$$\mathrm { d } r _ { t } = \left( \theta _ { t } - \kappa r _ { t } \right) \mathrm { d } t + \sigma _ { t } ^ { r } \mathrm { d } W _ { t } ^ { r }$$
+
+$$\frac { \mathrm { d } S _ { t } } { S _ { t } } = \left( r _ { t } - v _ { t } \right) \mathrm { d } t + \sigma _ { t } ^ { S } \mathrm { d } W _ { t } ^ { S }$$
+
+$$X _ { t } = S _ { t } \exp \left( - \int _ { 0 } ^ { t } \nu _ { u } \mathrm { d } u \right) = \frac { S _ { t } } { P ( 0 , t ) F _ { t } }$$
+
+$$\frac { \mathrm { d } X _ { t } } { \mathrm { X } _ { t } } = r _ { t } \mathrm { d } t + \sigma _ { t } ^ { S } \mathrm { d } W _ { t } ^ { S }$$
+
+$$r _ { s } = \int _ { t } ^ { s } \exp ( \kappa ( u - s ) ) \sigma _ { u } ^ { r } \mathrm { d } W _ { u } +$$ nonstochastic terms
+
+$\begin{aligned} P ( t , T ) & = \mathbb { E } ^ { \mathrm { P } } \left[ \exp \left( - \int _ { t } ^ { T } r _ { s } \mathrm { d } s \right) \right] \\ & \propto \mathbb { E } ^ { \mathrm { P } } \left[ \exp \left( - \int _ { t } ^ { T } \int _ { t } ^ { s } \exp ( \kappa ( u - s ) ) \sigma _ { u } ^ { r } \mathrm { d } W _ { u } ^ { r } \mathrm { d } s \right) \right] \\ & \propto \mathbb { E } ^ { \mathrm { P } } \left[ \exp \left( - \int _ { t } ^ { T } \hat { B } ( \kappa , u , T ) \sigma _ { u } ^ { r } \mathrm { d } W _ { u } ^ { r } \right) \right] \end{aligned}$
+
+where
+$$\hat { B } ( \kappa , u , T ) = \frac { 1 - \exp ( \kappa ( u - T ) ) } { \kappa }$$
+Equation $( 8.32 )$ gives us the volatility of the zero-coupon bond. We can find the
+drift using the fact that $P ( t , T )$ is tradable, so $P ( t , T ) / B _ { t }$ must be a $\mathbb { P }$ -martingale and
+so we have
+$$\frac { \mathrm { d } P ( t , T ) } { P ( t , T ) } = r _ { t } \mathrm { d } t - \hat { B } ( \kappa , t , T ) \sigma _ { t } ^ { r } \mathrm { d } W _ { t } ^ { r }$$
+
+Since $X _ { t }$ is tradable, $X _ { t } / P ( t , T )$ will be a $\mathbb { Q } _ { T ^ { - }}$ martingale, so it follows that
+
+$$\frac { \mathrm { d } \left( \frac { X _ { t } } { P ( t , T ) } \right) } { \frac { X _ { t } } { P ( t , T ) } } = \sigma _ { t } ^ { S } \mathrm { d } \widetilde { W } _ { t } ^ { S } + \hat { B } ( \kappa , t , T ) \sigma _ { t } ^ { r } \mathrm { d } \widetilde { W } _ { t } ^ { r }$$
+
+where $\tilde { W } _ { t }$ are Brownian motions in $\mathbb { Q } _ { T } .$ It follows that under $\mathbb { Q } _ { T } , X _ { T }$ is log-normally
+distributed with mean 1$/ P ( 0 , T )$ (since $X _ { 0 } = 1 )$ and variance
+
+$$V _ { T } = \int _ { 0 } ^ { T } \left( \left( \sigma _ { t } ^ { S } \right) ^ { 2 } + 2 \rho \sigma _ { t } ^ { S } \hat { B } ( \kappa , t , T ) \sigma _ { t } ^ { r } + \hat { B } ( \kappa , t , T ) ^ { 2 } \left( \sigma _ { t } ^ { r } \right) ^ { 2 } \right) \mathrm { d } t$$
+
+$$X _ { T } = \frac { 1 } { P ( 0 , T ) } \mathcal { E } \left( \sqrt { \frac { V _ { T } } { T } } \widetilde { W } _ { T } \right)$$
+
+where $\varepsilon$ is the Doléans-Dade exponential:
+$$\mathcal { E } \left( \sqrt { \frac { V _ { T } } { T } } \tilde { W } _ { T } \right) = \exp \left( \sqrt { \frac { V _ { T } } { T } } \tilde { W } _ { T } - \frac { V _ { T } } { 2 } \right)$$
+and so the stock price is given by
+$$S _ { T } = F _ { t } \mathcal { E } \left( \sqrt { \frac { V _ { T } } { T } } \tilde { W } _ { T } \right)$$
+
+$$\begin{aligned} C ( K , T ) & = P ( 0 , T ) \mathbb { E } ^ { Q } T \left[ \left( S _ { t } - K \right) ^ { + } \right] \\ & = P ( 0 , T ) \mathbb { E } ^ { Q T } \left[ \left( F _ { T } \mathcal { E } \left( \sqrt { \frac { V _ { T } } { T } } \widetilde { W } _ { T } \right) - K \right) ^ { + } \right] \end{aligned}$$
+
+$$V _ { T } = \sigma _ { \mathrm { imp } , T } ^ { 2 } T$$
+
+$$\sigma _ { \mathrm { imp } } ^ { 2 } ( T ) = \frac { 1 } { T } \int _ { 0 } ^ { T } \left( \left( \sigma _ { t } ^ { S } \right) ^ { 2 } + 2 \rho \sigma _ { t } ^ { S } \hat { B } ( \kappa , t , T ) \sigma _ { t } ^ { r } + \hat { B } ( \kappa , t , T ) ^ { 2 } \left( \sigma _ { t } ^ { r } \right) ^ { 2 } \right) \mathrm { d } t$$
+
+\subsection{reflection principle}
+
+
+
+$$\mathbb { P } \left\{ \tau _ { m } \leq t , W ( t ) \leq w \right\} = \mathbb { P } \{ W ( t ) \geq 2 m - w \} , \quad w \leq m , m > 0$$
+
+$$M ( t ) = \max _ { 0 \leq s \leq t } W ( s )$$
+
+$$\mathbb { P } \{ M ( t ) \geq m , W ( t ) \leq w \} = \mathbb { P } \{ W ( t ) \geq 2 m - w \} , \quad w \leq m , m > 0$$
+
+$$\mathbb { P } \{ M ( t ) \geq m , W ( t ) \leq w \} = \int _ { m } ^ { \infty } \int _ { - \infty } ^ { w } f _ { M ( t ) , W ( t ) } ( x , y ) d y d x$$
+
+$$\mathbb { P } \{ W ( t ) \geq 2 m - w \} = \frac { 1 } { \sqrt { 2 \pi t } } \int _ { 2 m - w } ^ { \infty } e ^ { - \frac { \lambda ^ { 2 } } { 2 t } } d z$$
+
+$$\int _ { m } ^ { \infty } \int _ { - \infty } ^ { w } f _ { M ( t ) , W ( t ) } ( x , y ) d y d x = \frac { 1 } { \sqrt { 2 \pi t } } \int _ { 2 m - w } ^ { \infty } e ^ { - \frac { x ^ { 2 } } { 2 t } } d z$$
+
+$$- \int _ { - \infty } ^ { w } f _ { M ( t ) , W ( t ) } ( m , y ) d y = - \frac { 2 } { \sqrt { 2 \pi t } } e ^ { - \frac { ( 2 m - w ) ^ { 2 } } { 2 t } }$$
+
+$$- f _ { M ( t ) , W ( t ) } ( m , w ) = - \frac { 2 ( 2 m - w ) } { t \sqrt { 2 \pi t } } e ^ { - \frac { ( 2 m - w ) ^ { 2 } } { 2 t } }$$
+
+$$f _ { M ( t ) , W ( t ) } ( m , w ) = \frac { 2 ( 2 m - w ) } { t \sqrt { 2 \pi t } } e ^ { - \frac { ( 2 m - w ) ^ { 2 } } { 2 t } } , \quad w \leq m , m > 0$$
+
+
+\subsection{Forward start option}
+
+Let us consider the case of a forward-start call option, with terminal payoff
+
+$$\mathbf { F S } _ { T } \stackrel { \mathrm { def } } { = } \left( S _ { T } - K S _ { T _ { 0 } } \right) ^ { + }$$
+To find the price at time $t \in \left[ 0 , T _ { 0 } \right]$ of such an option, it suffices to consider its value
+at the delivery date $T _ { 0 } ,$ that is, the price at time $T _ { 0 }$ of the at-the-money option with
+expiry date $T .$ Thus, we have
+
+$$\mathbf { F S } _ { T _ { 0 } } = C \left( S _ { T _ { 0 } } , T - T _ { 0 } , K S _ { T _ { 0 } } \right)$$
+since we restrict our attention to the classical Black-Scholes model, it is easily seen
+that
+
+$$C \left( S _ { T _ { 0 } } , T - T _ { 0 } , K S _ { T _ { 0 } } \right) = S _ { T _ { 0 } } C \left( 1 , T - T _ { 0 } , K \right)$$
+
+since $C \left( 1 , T - T _ { 0 } , K \right)$ is non-random, the option's value at time 0 equals
+$$\mathbf { F S } _ { 0 } = S _ { 0 } C \left( 1 , T - T _ { 0 } , K \right) = C \left( S _ { 0 } , T - T _ { 0 } , S _ { 0 } K \right)$$
+
+If a stock continuously pays dividends at a constant rate $\kappa ,$ the above equality should
+be modified as follows
+$$\quad \mathbf { F } \mathbf { S } _ { 0 } ^ { \kappa } = e ^ { - \kappa T _ { 0 } } C ^ { \kappa } \left( S _ { 0 } , T - T _ { 0 } , K S _ { 0 } \right)$$
+where $C ^ { \kappa }$ stands for the call option price derived in Proposition 3.2 .1
+
+\subsection{Chooser Option}
+
+\subsubsection{Question}
+A chooser option gives the right to choose at some future date $\tau$ to receive a call or put option with strike $K$ and final expiry
+$T>\tau$. The payoff at $\tau$ of a standard chooser option is
+
+$$\text{Ch}(\tau) =  \max \left\{ C \left( S _ { \tau } , T - \tau , K \right) , P \left( S _ { \tau } , T - \tau , K \right) \right\}$$
+
+Calculate the price of a chooser option at $t=0$ when $\sigma$ and $r$ are constant.
+
+\subsection{Solution}
+
+Recall that the call-put parity at $\tau$ and maturity $T$ implies that
+
+$$P \left( S _ { \tau } , T - \tau , K \right) = C \left( S _ { \tau } , T - \tau , K \right) - S _ { \tau } + K e ^ { - r \left( T - \tau \right) }$$
+
+We can rewrite the chooser option value at $\tau$
+
+$$\text{Ch}(\tau) = \max \left\{ C \left( S _ { \tau } , T - \tau , K \right) , C \left( S _ { \tau } , T - \tau , K \right) - S _ { \tau } + K e ^ { - r \left( T - \tau \right) } \right\}$$
+
+or finally 
+$$\text{Ch}(\tau)  = C \left( S _ { \tau } , T - \tau , K \right) + \left( K e ^ { - r \left( T - \tau \right) } - S _ { \tau } \right) ^ { + }$$
+
+The last equality implies immediately that the standard chooser option is equivalent
+to the portfolio composed of a long call option and a long put option (with different
+exercise prices and different expiry dates), so that its arbitrage price equals, for every
+$t \in \left[ 0 , \tau \right] ,$
+$$\mathbf { C H } _ { t } = C \left( S _ { t } , T - t , K \right) + P \left( S _ { t } , \tau - t , K e ^ { - r \left( T - \tau \right) } \right)$$
+
+In particular, using the Black-Scholes formula, we get for $t = 0$
+$$\mathbf { C H } _ { 0 } = S _ { 0 } \left( N \left( d _ { 1 } \right) - N \left( - \overline { d } _ { 1 } \right) \right) + K e ^ { - r T } \left( N \left( - \overline { d } _ { 2 } \right) - N \left( d _ { 2 } \right) \right)$$
+
+$$\begin{aligned} \text { where } & d _ { 1,2 } = \frac { \ln \left( S _ { 0 } / K \right) + \left( r \pm \frac { 1 } { 2 } \sigma ^ { 2 } \right) T } { \sigma \sqrt { T } } \\ \text { and } & \quad \\ & \overline { d } _ { 1,2 } = \frac { \ln \left( S _ { 0 } / K \right) + r T \pm \frac { 1 } { 2 } \sigma ^ { 2 } \tau } { \sigma \sqrt { \tau } } \end{aligned}$$
+
+\subsection{Exchange Option}
+
+This is an expression, originally derived by Margrabe $[ 1 ] ,$ for the value
+$$C = E \left[ e ^ { - r T } \max \left( S _ { 1 } ( T ) - S _ { 2 } ( T ) , 0 \right) \right]$$
+
+pf the option to exchange asset 2 for asset 1 at time $T .$ It is assumed that under the risk-neutral
+measure $P , S _ { 1 } ( t )$ and $S _ { 2 } ( t )$ satisfy
+
+$$\begin{aligned} d S _ { 1 } ( t ) = r S _ { 1 } ( t ) d t + \sigma _ { 1 } S _ { 1 } ( t ) d w _ { 1 } , S _ { 1 } ( 0 ) & = s _ { 1 } \\ d S _ { 2 } ( t ) & = r S _ { 2 } ( t ) d t + \sigma _ { 2 } S _ { 2 } ( t ) d w _ { 2 } , S _ { 2 } ( 0 ) = s _ { 2 } \end{aligned}$$
+
+where $w _ { 1 } , w _ { 2 }$ are Brownian motions with $E \left[ d w _ { 1 } d w _ { 2 } \right] = \rho d t .$ The riskless rate is $r .$ 
+
+
+First, $C$ does not depend on the riskless rate $r$ since $S _ { i } ( t ) = e ^ { r t } \tilde { S } _ { i } ( t ) , i = 1,2 ,$ where $\tilde { S } _ { i } ( t )$ is the
+solution to $( 1 ) , ( 2 )$ with $r = 0 ,$ and hence
+
+$$\begin{aligned} C & = E \left[ \max \left( \tilde { S } _ { 1 } ( T ) - \tilde { S } _ { 2 } ( T ) , 0 \right) \right] \\ & = E \left[ \tilde { S } _ { 2 } ( T ) \max \left( \tilde { S } _ { 1 } ( T ) / \tilde { S } _ { 2 } ( T ) - 1,0 \right) \right] \end{aligned}$$
+
+Henceforth, take $r = 0$ so that $\tilde { S } _ { i } ( t ) = S _ { i } ( t ) .$ By the Ito formula, $Y ( t ) = S _ { 1 } ( t ) / S _ { 2 } ( t )$ satisfies
+$$d Y = Y \left( \sigma _ { 2 } ^ { 2 } - \sigma _ { 1 } \sigma _ { 2 } \rho \right) d t + Y \left( \sigma _ { 1 } d w _ { 1 } - \sigma _ { 2 } d w _ { 2 } \right)$$
+
+$$\frac { 1 } { s _ { 2 } } S _ { 2 } ( T ) = \exp \left( \sigma _ { 2 } w _ { 2 } ( T ) - \frac { 1 } { 2 } \sigma _ { 2 } ^ { 2 } T \right)$$
+
+is a Girsanov exponential defining a measure change
+$$\frac { d \tilde { P } } { d P } = \frac { 1 } { s _ { 2 } } S _ { 2 } ( T )$$
+
+Thus 
+ $$ \quad \quad \quad C = s _ { 2 } \tilde { E } [ \max ( Y ( T ) - 1,0 ) ]$$
+
+By the Girsanov theorem, under measure $\tilde { P }$ the process
+$$d \tilde { w } _ { 2 } = d w _ { 2 } - \sigma _ { 2 } d t$$
+
+is a Brownian motion. We can write $w _ { 1 }$ as $w _ { 1 } ( t ) = \rho w _ { 2 } ( t ) + \sqrt { 1 - \rho ^ { 2 } } w ^ { \prime } ( t )$ where $w ^ { \prime } ( t )$ is a
+Brownian motion independent of $w _ { 2 } ( t )$ (under measure $P ) .$ You can check that with $\tilde { P }$ defined
+by $( 7 ) , w ^ { \prime }$ remains a Brownian motion under $P ,$ independent of $\tilde { w } _ { 2 } .$ Hence $d \tilde { w } _ { 1 }$ defined by
+
+$$\begin{aligned} d \tilde { w } _ { 1 } & = \rho d \tilde { w } _ { 2 } ( t ) + \sqrt { 1 - \rho ^ { 2 } } d w ^ { \prime } ( t ) \\ & = d w _ { 1 } ( t ) - \rho \sigma _ { 2 } d t \end{aligned}$$
+
+is a $\tilde { P }$ -Brownian motion. The equation for $Y$ under $\tilde { P }$ turns out-miraculously-to be
+$$d Y = Y \left( \sigma _ { 1 } d \tilde { w } _ { 1 } - \sigma _ { 2 } d \tilde { w } _ { 2 } \right)$$
+
+$$d Y = Y \sigma d w$$
+
+where $w$ is a standard Brownian motion and $\sigma$ is given by $( 4 ) .$ In view of $( 8 ) , ( 9 )$ the exchange
+option is equivalent to a call option on asset $Y$ with volatility $\sigma ,$ strike 1 and riskless rate $0 .$ By
+the Black-Scholes formula, this is $( 3 )$ .
+
+$$ C \left( s _ { 1 } , s _ { 2 } \right) = s _ { 1 } N \left( d _ { 1 } \right) - s _ { 2 } N \left( d _ { 2 } \right)$$
+
+$$\begin{aligned} d _ { 1 } & = \frac { \ln \left( s _ { 1 } / s _ { 2 } \right) + \frac { 1 } { 2 } \sigma ^ { 2 } T } { \sigma \sqrt { T } } \\ d _ { 2 } & = d _ { 1 } - \sigma \sqrt { T } \\ \sigma & = \sqrt { \sigma _ { 1 } ^ { 2 } + \sigma _ { 2 } ^ { 2 } - 2 \rho \sigma _ { 1 } \sigma _ { 2 } } \end{aligned}$$
+
+
+\subsection{Fokker Planck}
+
+Start with the SDE defined by
+$$d X _ { t } = \mu \left( X _ { t } \right) d t + \sigma \left( X _ { t } \right) d W _ { t }$$
+
+the transition density $\rho ( x , t | y , s ) $ is defined by
+
+$$\begin{aligned} \int _ { A } \rho ( x , t | y , s ) d x & = \operatorname { Pr } \left[ X _ { t + s } \in A | X _ { s } = y \right] \\ & = \operatorname { Pr } \left[ X _ { t } \in A | X _ { 0 } = y \right] \end{aligned}$$
+
+Consider a differentiable function $V \left( X _ { t } , t \right) = V ( x , t )$ with $V \left( X _ { t } , t \right) = 0$ for
+$t \notin ( 0 , T ) .$ Then by Ito's Lemma
+
+$$d V = \left[ \frac { \partial V } { \partial t } + \mu \frac { \partial V } { \partial x } + \frac { 1 } { 2 } \sigma ^ { 2 } \frac { \partial ^ { 2 } V } { \partial x ^ { 2 } } \right] d t + \left[ \sigma \frac { \partial V } { \partial x } \right] d W _ { t }$$
+
+
+\subsection{oksendal eiubt}
+
+Let $B _ { t }$ be Brownian motion on $\mathbf { R } , B _ { 0 } = 0 .$ Put $E = E ^ { 0 }$ .
+a) Use $( 2.2 .3 )$ to prove that
+
+$E \left[ e ^ { i u B _ { t } } \right] = \exp \left( - \frac { 1 } { 2 } u ^ { 2 } t \right) \quad$ for all $u \in \mathbf { R }$
+
+b) Use the power series expansion of the exponential function on both
+sides, compare the terms with the same power of $u$ and deduce that
+$E \left[ B _ { t } ^ { 4 } \right] = 3 t ^ { 2 }$
+
+and more generally that
+$E \left[ B _ { t } ^ { 2 k } \right] = \frac { ( 2 k ) ! } { 2 ^ { k } \cdot k ! } t ^ { k } ; \quad k \in \mathbf { N }$
+
+
+\clearpage
+
+\subsection{joshi Brownian bridge}
+Question 3.52. Let $W _ { s }$ be a Brownian bridge, that is a Brownian motion
+constrained such that $W _ { 0 } = 0$ and $W _ { t } = x .$ What is the distribution of $W _ { s } ,$ for
+$0 \leq s < t ?$
+
+Solution to Question $3.52 .$ The question asks us to calculate the probability
+density
+$$\mathbb { P } \left( W _ { s } \in d y | W _ { t } = x \right)$$
+
+with $W _ { 0 } = 0 .$ We proceed in the usual way when dealing with conditional
+probabilities, that is we write the above as
+$$\mathbb { P } \left( W _ { s } \in d y | W _ { t } = x \right) = \frac { \mathbb { P } \left( W _ { s } \in d y , W _ { t } \in d x \right) } { \mathbb { P } \left( W _ { t } \in d x \right) }$$
+
+We are familiar with probabilities for Brownian motion if we are moving forward,
+for example we know $\mathbb { P } \left( W _ { s } \in d x | W _ { u } = y \right)$ , by the independence of increments
+for Brownian motion. We therefore try to express the above in this way, continuing
+from the above:
+
+$$\mathbb { P } \left( W _ { s } \in d y | W _ { t } = x \right) = \frac { \mathbb { P } \left( W _ { s } \in d y \right) \mathbb { P } \left( W _ { t } \in d x | W _ { s } = y \right) } { \mathbb { P } \left( W _ { t } \in d x \right) }$$
+
+$$\mathbb { P } \left( W _ { t } \in d x | W _ { s } = y \right) = \frac { 1 } { \sqrt { 2 \pi ( t - s ) } } \exp \left\{ - \frac { ( x - y ) ^ { 2 } } { 2 ( t - s ) } \right\} d x$$
+
+$$\begin{aligned} \mathbb { P } \left( W _ { s } \in d y | W _ { t } = x \right) & = \frac { 1 } { \sqrt { 2 \pi s } } \exp \left\{ - \frac { y ^ { 2 } } { 2 s } \right\} \frac { 1 } { \sqrt { 2 \pi ( t - s ) } } \exp \left\{ - \frac { ( x - y ) ^ { 2 } } { 2 ( t - s ) } \right\} \\ & \times \sqrt { 2 \pi t } \exp \left\{ \frac { x ^ { 2 } } { 2 t } \right\} \\ & = t \frac { 1 } { \sqrt { 2 \pi t s ( t - s ) } } \exp \left\{ - \frac { ( y t - s x ) ^ { 2 } } { t s ( t - s ) } \right\} \end{aligned}$$
+
+This shows that $W _ { s }$ is normally distributed with mean $( s / t ) W _ { t }$ and variance
+$s ( t - s ) .$
+6
+\clearpage
+
+$\begin{array} { c } { \text { Prove directly from the definition of Itô integrals that } } \\ { \int _ { 0 } ^ { t } B _ { s } ^ { 2 } d B _ { s } = \frac { 1 } { 3 } B _ { t } ^ { 3 } - \int _ { 0 } ^ { t } B _ { s } d s } \end{array}$
+
+Martingales?
+
+
+$\begin{array} { l } { \text { (i) } X _ { t } = B _ { t } + 4 t } \\ { \text { (ii) } X _ { t } = B _ { t } ^ { 2 } } \\ { \text { (iii) } X _ { t } = t ^ { 2 } B _ { t } - 2 \int _ { 0 } ^ { t } s B _ { s } d s } \end{array}$
+
+$$M _ { t } = B _ { t } ^ { 2 } - t$$
+
+Oksendal Martingale exo
+a) Let $Y$ be a real valued random variable on $( \Omega , \mathcal { F } , P )$ such that
+$$E [ | Y | < \infty$$
+
+Define
+
+$$M _ { t } = E [ Y | \mathcal { F } _ { t } ] ; \quad t \geq 0$$
+
+Show that $M _ { t }$ is an $\mathcal { F } _ { t }$ -martingale.
+
+$\begin{array} { c } { \text { Conversely, let } M _ { t } ; t \geq 0 \text { be a real valued } \mathcal { F } _ { t - \text { martingale such that } } } \\ { \sup _ { t \geq 0 } E \left[ \left| M _ { t } \right| ^ { p } \right] < \infty \quad \text { for some } p > 1 } \end{array}$
+
+
+
+$$\begin{aligned} \text { Show that there exists } Y \in L ^ { 1 } ( P ) \text { such that } \\ & M _ { t } = E [ Y | \mathcal { F } _ { t } ] \end{aligned}$$
+
+
+
+Nouvel Exo
+
+$*$ In each of the cases below find the process $f ( t , \omega ) \in \mathcal { V } [ 0 , T ]$ such that
+$( 4.3 .6 )$ holds, i.e.
+$F ( \omega ) = E [ F ] + \int _ { 0 } ^ { T } f ( t , \omega ) d B _ { t } ( \omega )$
+
+$\begin{array} { l l } { \text { a) } F ( \omega ) = B _ { T } ( \omega ) } & { \text { b) } F ( \omega ) = \int _ { 0 } ^ { T } B _ { t } ( \omega ) d t } \\ { \text { c) } F ( \omega ) = B _ { T } ^ { 2 } ( \omega ) } & { \text { d) } F ( \omega ) = B _ { T } ^ { 3 } ( \omega ) } \\ { \text { e) } F ( \omega ) = e ^ { B _ { T } ( \omega ) } } & { \text { f) } F ( \omega ) = \sin B _ { T } ( \omega ) } \end{array}$
+
+Nouvel Exo
+
+
+Let $x > 0$ be a constant and define
+$X _ { t } = \left( x ^ { 1 / 3 } + \frac { 1 } { 3 } B _ { t } \right) ^ { 3 } ; \quad t \geq 0$
+
+Show that
+
+$d X _ { t } = \frac { 1 } { 3 } X _ { t } ^ { 1 / 3 } d t + X _ { t } ^ { 2 / 3 } d B _ { t } ; \quad X _ { 0 } = x$
+\clearpage
+
+
+
+We use the notation [h,h,h,t] for the current coins position, where h stands for heads and t for tails. We group the coins positions in classes which are stable by cyclical permutation. That means for example that [t,h,h,h], [h,t,h,h], [h,h,t,h] are grouped in the same class. Each time the player asks the game master if the current position is a winning position he can also flip all the coins and test the complementary position too. Therefore we can include the complementaries in the classes, which means that [t,h,h,h], [h,t,t,t], [h,t,h,h], [t,h,t,t] etc... are in a same class.
+
+We use the notation [f,o,o,o] to indicate which coins are flipped by the player, f stands for flipped and o indicates that the coins are not flipped. Similarly we group the player moves in classes which are stable by cyclical permutation. 
+
+$$\text{Position Classes}\begin{cases}
+  p_1 : \text{[h,h,h,h]}\\    
+  p_2 : \text{[t,h,h,h]}\\    
+p_3 : \text{[t,t,h,h]}\\    
+p_4 : \text{[t,h,t,h]}  
+\end{cases}
+\text{Transition Classes}\begin{cases}
+  t_1 : \text{[f,f,f,f]}\\    
+  t_2 : \text{[f,o,o,o]}\\    
+t_3 : \text{[f,f,o,o]}\\    
+t_4 : \text{[f,o,f,o]}  
+\end{cases}$$
+
+The transition $t_1$ is used at every step to check the complementary position. The position class $p_1$ is a winning position. We draw the following transition diagram
+
+
+\usetikzlibrary{positioning,automata,arrows}
+\begin{tikzpicture}[node distance=2cm]
+\node[state] (1) {$p_1$};
+\node[state,right of=1] (2) {$p_2$};
+\node[state, above of=1] (4) {$p_4$};
+\node[state, above of=2] (3) {$p_3$};
+\path[->] (2) edge[loop right] node{$t_3$} (2)
+(3) edge[loop right] node{$t_4$} (3)
+(2) edge[above,pos=0.05] node{$t_2$} (4)
+(2) edge[below] node{$t_2$} (1)
+(2) edge[right] node{$t_2$} (3)
+(3) edge[above] node{$t_3$} (4)
+(4) edge[left] node{$t_4$} (1)
+(3) edge[left,pos=0.05] node{$t_3$} (1)
+(2) edge[loop below] node{$t_4$} (2);
+\end{tikzpicture}
+
+
+We notice that the transition $t_4$ applied on $p_4$ always leads to $p_1$. We can also see that $p_2$ and $p_3$ are stable by $t_4$. Note that the diagram does not include some adverse transitions, for example $t_2$ applied to $p_4$ sends back to $p_2$. But we can find a winning strategy with the information available in the diagram
+\begin{itemize}
+\item We ask if the starting position is a winning one. If not we are not in $p_1$
+\item We start by applying $t_4$. If we land in a winning position then we were in $p_4$. If not, we are either in $p_2$ or $p_3$.
+\item We apply now $t_3$ and then $t_4$. If we land in a winning position (after the first move or after the second move, remember we always) we can confirm we were in $p_3$ otherwise we were in $p_2$
+\item We know now that we are in $p_2$. We apply $t_2$, $t_3$ and $t_4$ to win.
+\end{itemize}
+
+The winning algorithm including the complementary check is therefore
+
+$$t_4, t_1,t_3,t_1,t_4,t_1,t_2,t_1,t_3,t_1,t_4,t_1$$
+
+\clearpage
+
+\subsection{Normal Distribution}
+$$X \sim \mathcal{N}\left(\mu, \sigma^{2}\right)$$
+$$f_{X}(x)=\frac{1}{\sqrt{2 \pi} \sigma} \exp \left(-\frac{(x-\mu)^{2}}{2 \sigma^{2}}\right)$$
+
+\subsection{ $\sigma$-algebra}
+Let $\Omega$ be a set. A collection $\mathcal{A}$ of subsets of $\Omega$ is a $\sigma$-algebra on $\Omega$, if and only if it satisfies all the following properties:
+\begin{itemize}
+\item $\Omega, \emptyset \in \mathcal{A}$
+\item  For all $A \in \mathcal{A}, A^{c} \in \mathcal{A}$
+\item  For all sequence $\left(A_{n}\right)_{n=1}^{\infty}$ of elements of $\mathcal{A}, \cup_{n=1}^{\infty} A_{n}
+ \in \mathcal{A}$
+\end{itemize}
+
+
+\subsection{Brownian Motion} 
+A Brownian motion is a stochastic process $\left\{B_{t}\right\}_{t \geq 0+}$ with the following
+properties:
+\begin{itemize}
+\item $B_{0}=0$ 
+\item The function $t \rightarrow B_{t}$ is almost surely continuous in $t$ 
+\item The process $\left\{B_{t}\right\}_{t \geq 0}$ has stationary, independent increments
+\item The increment $B_{t+s}-B_{s}$ has the $\mathcal{N}(0, t)$ distribution
+\end{itemize}
+
+\subsection{Martingale} $\mathrm{An}\left(\mathcal{F}_{t}\right)$ -adapted, real-valued process $M$ is called a martingale (with respect
+to the filtration $\left(\mathcal{F}_{t}\right)$ if
+\begin{itemize}
+\item $\mathrm{E}\left|M_{t}\right|<\infty$ for all $t \in T$
+\item $\mathrm{E}\left(M_{t} | \mathcal{F}_{s}\right) \stackrel{\mathrm{as.}}{=} M_{s}$ for all $s \leq t$
+\end{itemize}
+
+\subsection{Girsanov}  Let $B_{t}, 0 \leq t \leq T$ be a Brownian motion on a probability space
+$(\Omega, \mathcal{F}, P),$ and let $\mathcal{F}_{t}, 0 \leq t \leq T,$ be a filtration for this Brownian motion. Let $a_{t}$ be an
+adapted process. Define
+$$ Z_{t} =\exp \left(-\int_{0}^{t} a_{u} d B_{u}-\frac{1}{2} \int_{0}^{t} a_{u}^{2} d u\right)$$
+$$\tilde{B}_{t} =B_{t}+\int_{0}^{t} a_{u} d u $$
+and the probability $\tilde{P}$ equivalent to $P$ defined by
+$$\tilde{P}(A)=\int_{A} Z(\omega) d P(\omega)$$
+and assume that
+$$E\left[\int_{0}^{t} a_{u}^{2} Z_{u}^{2} d u\right]<+\infty$$
+Then under the probability $\tilde{P}$ the process $\tilde{B}$ is a Brownian motion.
+
+\subsection{It\^{o} Process} 
+A process $X_{t}$ is said to be an It\^{o} process if there exist progressively measurable processes
+$\alpha_{t}$ and $\beta_{t}$ such that 
+$$\int_{0}^{t}\left(\left|\alpha_{s}\right|+\beta_{s}^{2}\right) d s<\infty, \text{a.s.}$$
+$$X_{t}=X_{0}+\int_{0}^{t} \alpha_{S} d s+\int_{0}^{t} \beta_{s} d B_{s}$$
+
+
+\subsection{ It\^{o}'s Lemma}
+Let $f(t, x)$ be a real-valued function whose second-order partial derivatives are continuous. Let $\left(X_{t}\right)_{t \geq 0}$ be an  It\^{o} process, Then
+$$d f(t,X)=\frac{\partial f}{\partial t}dt+\frac{\partial f}{\partial x}dX+\frac{1}{2} \frac{\partial^{2} f}{\partial x^{2}}d\langle X \rangle_t$$
+
+\subsection{Levy Theorem} 
+Let $M_t$ be a martingale with continuous sample paths and $M_{0}=0$.  Then
+$$d\langle M \rangle_t=dt \iff M ~\text{is a Brownian motion}$$
+
+\subsection{Martingale representation Theorem} 
+Let $B_{t}$ be a Brownian motion and  ${\mathcal {F}}_{t}$ the augmented filtration generated by $B_{t}$. If $X$ is an ${\mathcal {F}}_{\infty}$-measurable square integrable random variable, then there is a unique $ {\mathcal {F}}_{t}$-adapted predictable process $\phi$, such that
+$$X=\mathbf{E}[X]+\int_{0}^{\infty} \phi_{s} d B_{s}$$
+
+
+\subsection{Symmetric Matrices} 
+Any symmetric matrix $A$ ($A=A^{T}$)
+\begin{itemize}
+\item  has only real eigenvalues
+\item is always diagonalizable
+\item has orthogonal eigenvectors
+\end{itemize}
+
+\subsection{Semidefinite Positive Matrices} 
+The symmetric matrix $A$ is said positive semidefinite $(A \geq 0)$ if allits eigenvalues are non negative.
+
+\subsection{Useful Talor Series} 
+
+\begin{align}
+\frac{1}{1-x}\quad&=\quad1+x+x^{2}+x^{3}+x^{4}+\ldots \nonumber \\
+e^{x} \quad&=\quad 1+x+\frac{x^{2}}{2 !}+\frac{x^{3}}{3 !}+\frac{x^{4}}{4 !}+\ldots \nonumber \\
+\cos x \quad&=\quad 1-\frac{x^{2}}{2 !}+\frac{x^{4}}{4 !}-\frac{x^{6}}{6 !}+\frac{x^{8}}{8 !}-\ldots \nonumber \\
+\sin x \quad&=\quad x-\frac{x^{3}}{3 !}+\frac{x^{5}}{5 !}-\frac{x^{7}}{7 !}+\frac{x^{9}}{9 !}-\cdots \nonumber
+\end{align}
+
+\fi
+
+check i.e.
+rates are zero
+stopping time theorem
+
+
+
+\subsection{Corridor 1} Let $B_t$ be a Brownian Motion and $u$ and $d$ two positive real numbers. We consider an option which pays 1 if $B_t$ reaches $u$ and remained greater then $-d$ since inception
+ $$\exists t_0: B_{t_0}=A; ~ \forall t\in [0,t_0], B_t>-d $$ 
+payment is made when the barrier is touched. Calculate the price of this option when rates are zero. Calculate the average exit time i.e. the average time before touching $u$ or $-d$.
+
+\subsection{Corridor 1 - sol}
+
+This is a classic application of the optional sampling theorem (see page \ref{optstop}). We define $\tau$ the first hitting time of $u$ or $-d$. $\tau$ is a stopping time. The process $B_{\tau \wedge t}$ is a bounded martingale. By applying the optional sampling theorem to $B_{\tau \wedge t}$ and $\tau$  we obtain
+
+$$\mathbf{E}\left(B_{\tau \wedge \tau}\right)=\mathbf{E}\left(B_{\tau}\right)=\mathbf{E}\left(B_{0}\right)=0$$
+and
+$$\mathbf{E}\left(B_{\tau}\right)=p.u-(1-p).d=0$$
+where p is the probability to hit $u$ first. The price of the option is therefore
+
+$$\text{Price}=P\left\{\text{hit} ~u~ \text{first}\right\}=\frac{d}{u+d}$$
+
+\subsection{One sided corridor}
+
+Let $B_t$ be a Brownian Motion and $u$ a positive real number. We consider an option which pays 1 if $B_t$ reaches $u$
+ $$\exists t_0: B_{t_0}=A; ~ \forall t\in [0,t_0], B_t>-d $$ 
+payment is made when the barrier is touched. Calculate the price of this option when rates are zero and with rates $r>0$.
+
+\subsection{One sided corridor - sol}
+
+In this version of the question the stopped Brownian motion is not bounded and we cannot directly apply the optional sampling theorem. Actually the probability of reaching $u$ is 1 because the probability of the brownian motion reaching any given point is 1 (see page). The price of the option without rates is 1.
+
+When interest rates are applied we need to evaluate $\mathbf{E}\left(\exp\left(-r\tau_u \right)\right)$ where $\tau_u$ is the first hitting time of $u$. In order to evaluate it we consider the martingale
+
+$$X_t=\exp \left(aB_{t}-\frac{a^2}{2}t\right)$$
+with $a>0$. The process $X_{\tau \wedge t}$ is a bounded martingale. By applying the optional sampling theorem (see page ) to $X_{\tau_u \wedge t}$ and $\tau_u$ we obtain
+
+$$\mathbf{E}\left(X_{\tau_u \wedge \tau_u}\right)=\mathbf{E}\left(X_{\tau_u}\right)=\mathbf{E}\left(X_{0}\right)=1$$
+and
+$$\mathbf{E}\left(X_{\tau_u}\right)=\mathbf{E}\left(\exp \left(a.u-\frac{a^2}{2}\tau_u\right)\right)=1$$
+$$\mathbf{E}\left(\exp \left(-\frac{a^2}{2}\tau_u\right)\right)=\exp \left(-a.u\right)$$
+We set $a=\sqrt{2r}$ to find the option price
+$$\text{Price}=\mathbf{E}\left(\exp\left(-r\tau_u \right)\right)=\exp \left(-\sqrt{2r}.u\right)$$
+P.S. The one-sided version of the corridor can be a confusing question. It is sometimes asked differently with a stock following brownian motion dynamics, starting in $A$ and paying 1 if the stock reaches $B>A$. The interviewer often assumes that the process behaves like a stock in the sense that if it touches zero the process stays at zero (the stock of a company is equal to zero in case of default). That version is equivalent to a double sided corridor between $0$ and $B$.
+
+\subsection{Corridor 2} Let $B_t$ be a Brownian Motion and $u$ and $d$ two positive real numbers. We consider an option which pays 1 if $B_t$ reaches $u$ and remained greater then $-d$ since inception
+$$\exists t_0: B_{t_0}=A; ~ \forall t\in [0,t_0], B_t>-d $$ 
+payment is made when the barrier is touched. Calculate the price of this option with rates $r>0$.
+
+\subsection{Corridor 2 - sol}
+We define $\tau$ the first hitting time of $u$ or $-d$. Let $U$ be the subset of $\Omega$ where $u$ is hit first and $D$ be the subset where $-d$ is hit first. We need to evaluate $\mathbf{E}\left(\mathbbm{1}_U\exp\left(-r\tau \right)\right)$
+
+\subsection{Doob's Optional Sampling Theorem}\label{optstop}
+If M is a martingale and $S,T$ are stopping times with $S \leq T$ a.s. and $\mathbb{E}\left|M_{T}\right|<+\infty$ then
+$$\quad \mathbb{E}\left[M_{T} | \mathcal{F}_{S}\right]=M_{S}$$
+
+ Let $(\Omega, \Sigma, \mathbf{P})$ be a probability space$, \mathcal{F}=\left\{F_{n}\right\}$ a filtration on $\Omega,$ and $X=\left\{X_{n}\right\}$ a martingale with respect to $\mathcal{F}$. Let $\tau$ be a stopping time. Suppose that any one of the following conditions holds:
+
+\begin{itemize}
+\item  There is a positive integer $N$ such that $\tau(\omega) \leq N$ for all $\omega \in \Omega$
+\item  There is a positive real number $K$ such that
+$$\left|X_{n}(\omega)\right|<K$$
+for all $n$ and all $\omega \in \Omega,$ and $\tau$ is almost surely finite.
+\item  $\mathbf{E}(\tau)<\infty,$ and there is a positive real number $K$ such that
+$$\left|X_{n}(\omega)-X_{n-1}(\omega)\right|<K$$
+for all $n$ and all $\omega \in \Omega$
+
+Then $X_{\tau}$ is integrable, and
+$$\mathbf{E}\left(X_{\tau}\right)=\mathbf{E}\left(X_{0}\right)$$
+\end{itemize}
+
+
+\subsection{Long-term behavior of trajectories}. Let $\left\{B_{t}\right\}_{t \in[0, \infty)}$
+be a Brownian motion. Then,
+$\limsup _{t \rightarrow \infty} \frac{B_{t}}{\sqrt{t}}=\infty,$ and $\liminf _{t \rightarrow \infty} \frac{B_{t}}{\sqrt{t}}=-\infty, a . s$
+
+
+
+Definition 2.3.1 $A$ (generalized) random variable $T$ is called a stopping time
+if 
+$T : \Omega \longrightarrow \mathbb{Z}_{+} \cup\{\infty\}$
+satisfies $\{T \leq n\} \in \mathcal{F}_{n}$
+
+
+\subsection{Hitting Times (First Passage Times)}
+Let $T_{a}=\min \{t : B(t)=a\}$ be the first time the standard Brownian motion process hits a. Using the reflection principle we can prove that
+$$\mathrm{P}\left(T_{a} \leq t\right)=2 \mathrm{P}(B(t) \geq a)=2-2 \Phi(a / \sqrt{t})$$
+$$\lim_{t\to\infty}\mathrm{P}\left(T_{a} \leq t\right)=1$$
+
+\subsection{It\^{o}'s Isometry}
+Let $B_t$ be a Brownian Motion and $X_t$ a stochastic process
+$$\mathrm{E}\left[\left(\int_{0}^{T} X_{t} \mathrm{d} B_{t}\right)^{2}\right]=\mathrm{E}\left[\int_{0}^{T} X_{t}^{2} \mathrm{d} t\right]$$
+
+\subsection{Bayes' theorem}
+$$P(A | B)=\frac{P(B | A) P(A)}{P(B)}$$
+where $A$ and $B$ are events and $P(B) \neq 0$
+
+\subsection{Self-financing Portfolios}
+A portfolio, or trading strategy, is any predictable process
+$$\phi=\left(\phi_{0}, \ldots, \phi_{n}\right)$$
+Its corresponding value process is
+$$V(t)=V(t ; \phi) :=\sum_{i=0}^{n} \phi_{i}(t) S_{i}(t)$$
+The portfolio $\phi$ is called self-financing (for $S )$ if the stochastic integrals
+$$\int_{0}^{t} \phi_{i}(u) d S_{i}(u), \quad i=0, \ldots, n$$
+are well defined and
+$$d V(t ; \phi)=\sum_{i=0}^{n} \phi_{i}(t) d S_{i}(t)$$
+
+\end{document}
